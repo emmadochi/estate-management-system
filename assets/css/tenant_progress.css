@@ -1,0 +1,128 @@
+/* Tenant Maintenance Progress Tracking Styles */
+
+/* Progress Bar Enhancements */
+.progress {
+    border-radius: 4px;
+    background-color: #f5f8fa;
+}
+
+.progress-bar {
+    transition: width 0.6s ease;
+}
+
+/* Timeline Styles */
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.timeline-line {
+    position: absolute;
+    left: -22px;
+    top: 24px;
+    bottom: -24px;
+    width: 2px;
+    background-color: #e1e5ea;
+}
+
+.timeline-item:last-child .timeline-line {
+    display: none;
+}
+
+.timeline-icon {
+    position: absolute;
+    left: -30px;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: white;
+    border: 2px solid #e1e5ea;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+}
+
+.timeline-content {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+    border-left: 3px solid #009ef7;
+}
+
+/* Status Badge Enhancements */
+.badge-light-urgent {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.badge-light-high {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.badge-light-medium {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+.badge-light-low {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+/* Photo Gallery */
+.img-thumbnail {
+    border: 1px solid #e1e5ea;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.img-thumbnail:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Print Styles */
+@media print {
+    .btn, .card-header, .timeline-line {
+        display: none !important;
+    }
+    
+    .card {
+        box-shadow: none !important;
+        border: 1px solid #000 !important;
+    }
+    
+    .timeline-content {
+        border-left: 3px solid #000 !important;
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .timeline {
+        padding-left: 20px;
+    }
+    
+    .timeline-icon {
+        left: -20px;
+        width: 16px;
+        height: 16px;
+        font-size: 8px;
+    }
+    
+    .timeline-line {
+        left: -14px;
+    }
+    
+    .timeline-content {
+        padding: 0.75rem;
+    }
+}

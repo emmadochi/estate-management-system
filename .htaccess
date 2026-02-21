@@ -1,0 +1,14 @@
+RewriteEngine On
+
+# Allow static files to be served directly
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^(.*)$ - [QSA,L]
+
+# Don't rewrite PHP files
+RewriteCond %{REQUEST_FILENAME} \.php$
+RewriteRule ^(.*)$ - [QSA,L]
+
+# Route other requests appropriately
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.html [QSA,L]
