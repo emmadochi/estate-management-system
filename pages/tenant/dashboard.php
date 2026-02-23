@@ -269,6 +269,12 @@ require __DIR__ . '/partials/top.php';
                             <span class="fw-semibold fs-7">Request Lease</span>
                         </a>
                     </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <a href="emergency_alert_pro.php" class="d-flex flex-column align-items-center text-center p-4 rounded bg-light-danger bg-hover-light-danger text-gray-800 text-hover-primary">
+                            <i class="ki-duotone ki-siren fs-2x text-danger mb-2"><span class="path1"></span><span class="path2"></span></i>
+                            <span class="fw-semibold fs-7">Emergency</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

@@ -361,8 +361,45 @@ function _nav_active(string $file, string $current): string {
                                         <?php endif; ?>
 
                                         <?php if ($isSuper || $isEstateAdmin || $isPropertyManager || $isSecurity): ?>
+                                            <?php 
+                                            // Get active emergency count for notification badge
+                                            $activeEmergencyCount = 0;
+                                            if (function_exists('db')) {
+                                                $db = db();
+                                                $estateIds = function_exists('allowed_estate_ids') ? allowed_estate_ids() : [];
+                                                if (!empty($estateIds)) {
+                                                    $placeholders = str_repeat('?,', count($estateIds) - 1) . '?';
+                                                    $result = $db->fetchOne(
+                                                        "SELECT COUNT(*) as count FROM emergency_alerts 
+                                                         WHERE estate_id IN ($placeholders) 
+                                                         AND status IN ('reported', 'acknowledged', 'responding')",
+                                                        $estateIds
+                                                    );
+                                                    $activeEmergencyCount = (int)($result['count'] ?? 0);
+                                                }
+                                            }
+                                            ?>
                                             <div class="menu-item pt-5">
-                                                <div class="menu-content"><span class="menu-heading fw-bold text-uppercase fs-7">Security</span></div>
+                                                <div class="menu-content d-flex align-items-center">
+                                                    <span class="menu-heading fw-bold text-uppercase fs-7 me-2">Security</span>
+                                                    <?php if ($activeEmergencyCount > 0): ?>
+                                                        <span class="badge badge-light-danger fs-8 py-1 px-2"><?= $activeEmergencyCount ?></span>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
+                                            <div class="menu-item">
+                                                <a class="menu-link<?= _nav_active('emergency_incidents.php', $current) ?>" href="emergency_incidents.php">
+                                                    <span class="menu-icon">
+                                                        <i class="ki-duotone ki-siren fs-2<?= $activeEmergencyCount > 0 ? ' text-danger' : '' ?>"><span class="path1"></span><span class="path2"></span></i>
+                                                        <?php if ($activeEmergencyCount > 0): ?>
+                                                            <span class="bullet bullet-dot bg-danger position-absolute top-0 end-0 me-n1 mt-1"></span>
+                                                        <?php endif; ?>
+                                                    </span>
+                                                    <span class="menu-title">Emergency Alerts</span>
+                                                    <?php if ($activeEmergencyCount > 0): ?>
+                                                        <span class="badge badge-light-danger badge-circle ms-2"><?= $activeEmergencyCount ?></span>
+                                                    <?php endif; ?>
+                                                </a>
                                             </div>
                                             <?php if ($isSecurity): ?>
                                             <div class="menu-item">
@@ -390,7 +427,7 @@ function _nav_active(string $file, string $current): string {
                                                 </a>
                                             </div>
                                             <div class="menu-item">
-                                                <a class="menu-link<?= _nav_active('../security/emergency_incidents.php', $current) ?>" href="../security/emergency_incidents.php">
+                                                <a class="menu-link<?= _nav_active('emergency_incidents.php', $current) ?>" href="emergency_incidents.php">
                                                     <span class="menu-icon"><i class="ki-duotone ki-information fs-2"><span class="path1"></span><span class="path2"></span></i></span>
                                                     <span class="menu-title">Emergency Incidents</span>
                                                 </a>

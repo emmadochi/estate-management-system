@@ -273,7 +273,7 @@ function generate_qa_report(int $ticketId): array {
         // Get ticket details
         $ticket = $db->fetchOne(
             "SELECT mt.*, v.name as vendor_name, v.specialization,
-                    t.first_name as tenant_first, t.last_name as tenant_last,
+                    t.emergency_contact_name as tenant_name,
                     e.name as estate_name
              FROM maintenance_tickets mt
              LEFT JOIN vendors v ON v.id = mt.vendor_id

@@ -152,6 +152,12 @@ function _security_nav_active(string $file, string $current): string {
                       </a>
                     </div>
                     <div class="menu-item">
+                      <a class="menu-link<?= _security_nav_active('emergency_response.php', $current) ?>" href="emergency_response.php">
+                        <span class="menu-icon"><i class="ki-duotone ki-siren fs-2"><span class="path1"></span><span class="path2"></span></i></span>
+                        <span class="menu-title">Emergency Alerts</span>
+                      </a>
+                    </div>
+                    <div class="menu-item">
                       <a class="menu-link<?= _security_nav_active('emergency_incidents.php', $current) ?>" href="emergency_incidents.php">
                         <span class="menu-icon"><i class="ki-duotone ki-information fs-2"><span class="path1"></span><span class="path2"></span></i></span>
                         <span class="menu-title">Emergency Incidents</span>

@@ -19,7 +19,7 @@ $tickets = $db->fetchAll(
         mt.expected_completion_date,
         un.unit_number, p.name as property_name,
         e.name as estate_name,
-        t.first_name as tenant_first, t.last_name as tenant_last
+        t.emergency_contact_name as tenant_name
      FROM maintenance_tickets mt
      INNER JOIN units un ON un.id = mt.unit_id
      INNER JOIN properties p ON p.id = un.property_id
@@ -189,7 +189,7 @@ if ($ticketId > 0) {
     $selectedTicket = $db->fetchOne(
         "SELECT 
             mt.*, un.unit_number, p.name as property_name,
-            e.name as estate_name, t.first_name as tenant_first, t.last_name as tenant_last
+            e.name as estate_name, t.emergency_contact_name as tenant_name
          FROM maintenance_tickets mt
          INNER JOIN units un ON un.id = mt.unit_id
          INNER JOIN properties p ON p.id = un.property_id
@@ -263,7 +263,7 @@ require __DIR__ . '/partials/top.php';
             </div>
             <div class="mb-3">
               <div class="text-gray-600 fs-7">Tenant</div>
-              <div class="fw-bold"><?= e($selectedTicket['tenant_first'] . ' ' . $selectedTicket['tenant_last']) ?></div>
+              <div class="fw-bold"><?= e($selectedTicket['tenant_name']) ?></div>
             </div>
           </div>
           <div class="col-md-6">
@@ -490,7 +490,7 @@ require __DIR__ . '/partials/top.php';
                 </div>
                 <div class="mb-2">
                   <span class="text-gray-600">Tenant:</span>
-                  <span class="fw-bold"><?= e($ticket['tenant_first'] . ' ' . $ticket['tenant_last']) ?></span>
+                  <span class="fw-bold"><?= e($ticket['tenant_name']) ?></span>
                 </div>
                 <div class="mb-3">
                   <span class="text-gray-600">Description:</span>

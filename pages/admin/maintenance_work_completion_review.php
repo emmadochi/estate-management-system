@@ -31,7 +31,7 @@ try {
             mt.tenant_confirmation_status,
             un.unit_number, p.name AS property_name,
             v.name AS vendor_name, u.email AS artisan_email,
-            t.first_name AS tenant_first, t.last_name AS tenant_last
+            tn.emergency_contact_name AS tenant_name
          FROM maintenance_tickets mt
          INNER JOIN units un ON un.id = mt.unit_id
          INNER JOIN properties p ON p.id = un.property_id
@@ -58,7 +58,7 @@ if ($ticketId > 0) {
                 mt.*, 
                 un.unit_number, p.name AS property_name,
                 v.name AS vendor_name, u.email AS artisan_email,
-                t.first_name AS tenant_first, t.last_name AS tenant_last
+                tn.emergency_contact_name AS tenant_name
              FROM maintenance_tickets mt
              INNER JOIN units un ON un.id = mt.unit_id
              INNER JOIN properties p ON p.id = un.property_id
@@ -178,7 +178,7 @@ require __DIR__ . '/partials/top.php';
         <div class="row mb-6">
           <div class="col-md-6">
             <div class="text-gray-600 fs-7 mb-1">Tenant</div>
-            <div class="fw-bold"><?= e($selectedTicket['tenant_first'] . ' ' . $selectedTicket['tenant_last']) ?></div>
+            <div class="fw-bold"><?= e($selectedTicket['tenant_name']) ?></div>
           </div>
           <div class="col-md-6">
             <div class="text-gray-600 fs-7 mb-1">Location</div>
@@ -414,7 +414,7 @@ require __DIR__ . '/partials/top.php';
                   <div class="fs-8 text-gray-600"><?= date('M j, Y', strtotime($t['created_at'])) ?></div>
                 </td>
                 <td class="text-gray-700">
-                  <?= e($t['tenant_first'] . ' ' . $t['tenant_last']) ?>
+                  <?= e($t['tenant_name']) ?>
                 </td>
                 <td class="text-gray-700">
                   <?= e($t['property_name']) ?> — <?= e($t['unit_number']) ?>

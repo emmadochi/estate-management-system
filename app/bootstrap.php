@@ -444,6 +444,108 @@ function send_basic_email(string $to, string $subject, string $body): void {
     @mail($to, $subject, $body, $headers);
 }
 
+/**
+ * Emergency Alert Functions
+ */
+
+/**
+ * Create emergency alert notification for all security personnel
+ */
+function notify_security_of_emergency(int $alertId, int $estateId, string $alertType, string $description, string $location, string $tenantName): void {
+    $db = db();
+    
+    // Get all active security personnel for this estate
+    $securityPersonnel = $db->fetchAll(
+        "SELECT sp.user_id, u.first_name, u.last_name, u.email, u.phone
+         FROM security_personnel sp
+         JOIN users u ON sp.user_id = u.id
+         WHERE sp.estate_id = ? AND sp.status = 'active'",
+        [$estateId]
+    );
+    
+    $alertTitle = '🚨 EMERGENCY: ' . ucfirst(str_replace('_', ' ', $alertType));
+    $alertMessage = "Emergency reported by $tenantName at $location: $description";
+    
+    foreach ($securityPersonnel as $security) {
+        // Create in-app notification
+        notify_user(
+            (int)$security['user_id'],
+            'emergency_alert',
+            $alertTitle,
+            $alertMessage,
+            '../security/emergency_response.php?alert_id=' . $alertId
+        );
+        
+        // In a real implementation, also send SMS and email
+        // send_emergency_sms($security['phone'], $alertMessage);
+        // send_emergency_email($security['email'], $alertTitle, $alertMessage);
+    }
+}
+
+/**
+ * Get emergency response time statistics
+ */
+function get_emergency_response_stats(int $estateId): array {
+    $db = db();
+    
+    return $db->fetchOne(
+        "SELECT 
+            COUNT(*) as total_alerts,
+            COUNT(CASE WHEN status IN ('resolved', 'closed') THEN 1 END) as resolved_alerts,
+            COUNT(CASE WHEN status IN ('reported', 'acknowledged', 'responding') THEN 1 END) as active_alerts,
+            AVG(CASE WHEN response_time_seconds IS NOT NULL THEN response_time_seconds END) as avg_response_time,
+            AVG(CASE WHEN resolution_time_seconds IS NOT NULL THEN resolution_time_seconds END) as avg_resolution_time
+         FROM emergency_alerts 
+         WHERE estate_id = ? AND DATE(reported_at) = CURDATE()",
+        [$estateId]
+    ) ?: [
+        'total_alerts' => 0,
+        'resolved_alerts' => 0,
+        'active_alerts' => 0,
+        'avg_response_time' => 0,
+        'avg_resolution_time' => 0
+    ];
+}
+
+/**
+ * Update emergency response times
+ */
+function update_emergency_response_times(int $alertId): void {
+    $db = db();
+    
+    $alert = $db->fetchOne(
+        "SELECT reported_at, acknowledged_at, responded_at, resolved_at FROM emergency_alerts WHERE id = ?",
+        [$alertId]
+    );
+    
+    if ($alert) {
+        $updates = [];
+        $params = [];
+        
+        // Calculate response time (acknowledged - reported)
+        if ($alert['acknowledged_at']) {
+            $responseTime = strtotime($alert['acknowledged_at']) - strtotime($alert['reported_at']);
+            $updates[] = "response_time_seconds = ?";
+            $params[] = $responseTime;
+        }
+        
+        // Calculate resolution time (resolved - reported)
+        if ($alert['resolved_at']) {
+            $resolutionTime = strtotime($alert['resolved_at']) - strtotime($alert['reported_at']);
+            $updates[] = "resolution_time_seconds = ?";
+            $params[] = $resolutionTime;
+        }
+        
+        if (!empty($updates)) {
+            $params[] = $alertId;
+            $db->execute(
+                "UPDATE emergency_alerts SET " . implode(', ', $updates) . " WHERE id = ?",
+                $params
+            );
+        }
+    }
+}
+
 /** Notify all users who can access an estate (super admins + estate-assigned users). Used for new lease request etc. */
 function notify_estate_admins(int $estateId, string $type, string $title, string $body = '', string $link = ''): void {
     try {

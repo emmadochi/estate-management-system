@@ -27,7 +27,7 @@ if ($ticketId > 0) {
                 mt.*, 
                 un.unit_number, p.name AS property_name,
                 v.name AS vendor_name, u.email AS artisan_email,
-                t.first_name AS tenant_first, t.last_name AS tenant_last,
+                t.emergency_contact_name AS tenant_name,
                 -- Progress tracking
                 CASE 
                     WHEN mt.status = 'open' THEN 10

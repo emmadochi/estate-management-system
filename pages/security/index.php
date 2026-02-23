@@ -36,8 +36,9 @@ if ($estateId) {
     }
     $row = $db->fetchOne("SELECT COUNT(*) AS c FROM gate_passes WHERE estate_id = ? AND status = 'active' AND valid_until >= NOW()", [$estateId]);
     $stats['active_passes'] = (int) ($row['c'] ?? 0);
-    $row = $db->fetchOne("SELECT COUNT(*) AS c FROM emergency_incidents WHERE estate_id = ? AND status IN ('reported', 'in_progress')", [$estateId]);
-    $stats['open_incidents'] = (int) ($row['c'] ?? 0);
+    $incidentCount = $db->fetchOne("SELECT COUNT(*) AS c FROM emergency_incidents WHERE estate_id = ? AND status IN ('reported', 'in_progress')", [$estateId]);
+    $alertCount = $db->fetchOne("SELECT COUNT(*) AS c FROM emergency_alerts WHERE estate_id = ? AND status IN ('reported', 'acknowledged', 'responding')", [$estateId]);
+    $stats['open_incidents'] = (int) ($incidentCount['c'] ?? 0) + (int) ($alertCount['c'] ?? 0);
     $row = $db->fetchOne("SELECT COUNT(*) AS c FROM visitor_logs WHERE estate_id = ? AND DATE(entry_time) = ? AND status = 'checked_in'", [$estateId, $today]);
     $stats['visitors_today'] = (int) ($row['c'] ?? 0);
 }
@@ -89,15 +90,15 @@ require __DIR__ . '/partials/top.php';
                         </a>
                     </div>
                     <div class="col-6 col-xl-3">
-                        <a href="emergency_incidents.php" class="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x-end h-xl-100 text-decoration-none">
+                        <a href="emergency_response.php" class="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x-end h-xl-100 text-decoration-none">
                             <div class="card-header pt-5">
                                 <div class="card-title d-flex flex-column">
                                     <span class="fs-2hx fw-bold text-gray-900 me-2 lh-1"><?= (int)$stats['open_incidents'] ?></span>
-                                    <span class="text-gray-500 fw-semibold pt-1">Open incidents</span>
+                                    <span class="text-gray-500 fw-semibold pt-1">Open Incidents & Alerts</span>
                                 </div>
                             </div>
                             <div class="card-body d-flex align-items-end pt-0">
-                                <span class="fs-6 fw-bolder text-primary">View incidents &rarr;</span>
+                                <span class="fs-6 fw-bolder text-primary">View All &rarr;</span>
                             </div>
                         </a>
                     </div>
@@ -143,6 +144,10 @@ require __DIR__ . '/partials/top.php';
                     <a href="emergency_incidents.php" class="btn btn-light-danger">
                         <i class="ki-duotone ki-information fs-2"><span class="path1"></span><span class="path2"></span></i>
                         Emergency incidents
+                    </a>
+                    <a href="emergency_response.php" class="btn btn-light-danger">
+                        <i class="ki-duotone ki-siren fs-2"><span class="path1"></span><span class="path2"></span></i>
+                        Emergency Alerts
                     </a>
                     <a href="incident_reports.php" class="btn btn-light-warning">
                         <i class="ki-duotone ki-file fs-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
