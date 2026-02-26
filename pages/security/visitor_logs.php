@@ -92,19 +92,22 @@ if ($method === 'POST') {
                 // Generate gate pass number
                 $gatePassNumber = 'GP-' . date('Ymd') . '-' . strtoupper(substr(uniqid(), -6));
                 
+                // Generate QR code for the visitor
+                $qrCode = 'VISITOR_' . $gatePassNumber . '_' . time();
+                
                 // Insert visitor log
                 $db->insert(
                     "INSERT INTO visitor_logs (
                         estate_id, unit_id, tenant_id, visitor_name, visitor_phone, purpose,
                         entry_time, gate_pass_number, vehicle_registration, driver_license, 
                         host_name, host_phone, special_instructions, emergency_contact_visitor,
-                        emergency_contact_phone_visitor, status, logged_by
-                    ) VALUES (?, ?, ?, ?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?, 'checked_in', ?)",
+                        emergency_contact_phone_visitor, status, logged_by, qr_code
+                    ) VALUES (?, ?, ?, ?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?, 'checked_in', ?, ?)",
                     [
                         $estateId, $unitId, $tenantId, $visitorName, $visitorPhone, $purpose,
                         $gatePassNumber, $vehicleRegistration, $driverLicense, $hostName,
                         $hostPhone, $specialInstructions, $emergencyContactVisitor,
-                        $emergencyContactPhoneVisitor, $me['id']
+                        $emergencyContactPhoneVisitor, $me['id'], $qrCode
                     ]
                 );
                 
@@ -154,12 +157,33 @@ if ($estateId) {
     );
 }
 
-$toolbarActions = '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerVisitorModal"><i class="ki-duotone ki-plus fs-2"></i>Register Visitor</button>';
+$toolbarActions = '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#qrScannerModal"><i class="ki-duotone ki-qr-code fs-2"></i>Scan QR</button> <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerVisitorModal"><i class="ki-duotone ki-plus fs-2"></i>Register Visitor</button>';
 
 require __DIR__ . '/partials/top.php';
 ?>
 
 <div class="row g-6 g-xl-9">
+    <!-- QR Code Scanner Modal -->
+    <div class="modal fade" id="qrScannerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Scan QR Code</h3>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div id="qr-reader" style="width: 100%; height: 300px;"></div>
+                    <div id="qr-reader-results"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Registration Modal -->
     <div class="modal fade" id="registerVisitorModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -298,6 +322,9 @@ require __DIR__ . '/partials/top.php';
                 <div class="card-title">
                     <h3 class="fw-bold m-0">Visitor Logs</h3>
                 </div>
+                <div class="card-toolbar">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#qrScannerModal"><i class="ki-duotone ki-qr-code fs-2"></i>Scan QR</button>
+                </div>
                 <?php if ($securityPersonnel): ?>
                 <div class="card-toolbar">
                     <span class="badge badge-light-primary fs-5"><?= e($securityPersonnel['badge_number']) ?></span>
@@ -354,6 +381,7 @@ require __DIR__ . '/partials/top.php';
                                     <th class="min-w-100px">Entry</th>
                                     <th class="min-w-100px">Exit</th>
                                     <th class="min-w-90px">Gate pass</th>
+                                    <th class="min-w-70px">QR</th>
                                     <th class="min-w-90px">Status</th>
                                     <th class="min-w-100px text-end">Actions</th>
                                 </tr>
@@ -374,6 +402,7 @@ require __DIR__ . '/partials/top.php';
                                     <td><?= $vl['entry_time'] ? date('M j, H:i', strtotime($vl['entry_time'])) : '—' ?></td>
                                     <td><?= !empty($vl['exit_time']) ? date('M j, H:i', strtotime($vl['exit_time'])) : '—' ?></td>
                                     <td><?= e($vl['gate_pass_number'] ?? '—') ?></td>
+                                                                        <td><?php if (!empty($vl['qr_code'])): ?><i class="ki-duotone ki-qr-code fs-3 cursor-pointer text-primary" onclick="showQRCode('<?= e(addslashes($vl['qr_code'])) ?>')"></i><?php else: ?>—<?php endif; ?></td>
                                     <td>
                                         <?php
                                         $badge = 'badge-light';
@@ -570,6 +599,180 @@ checkoutForms.forEach(form => {
         button.disabled = true;
     });
 });
+
+
+// QR Code Scanning functionality
+let html5QrcodeScanner = null;
+
+// Function to initialize QR scanner
+function initQRScanner() {
+    const qrReaderContainer = document.getElementById('qr-reader');
+    if (!qrReaderContainer) {
+        console.error('QR reader container not found');
+        return;
+    }
+    
+    // Clear any previous scanner
+    if (html5QrcodeScanner) {
+        html5QrcodeScanner.clear().catch(error => {
+            console.error('Failed to clear previous scanner: ', error);
+        });
+    }
+    
+    // Initialize new scanner
+    html5QrcodeScanner = new Html5Qrcode('qr-reader');
+    
+    const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+        // Handle successful QR code scan
+        console.log('QR Code scanned:', decodedText);
+        document.getElementById('qr-reader-results').innerHTML = '<div class="alert alert-success mt-3">QR Code scanned successfully: ' + decodedText + '</div>';
+        
+        // Try to parse the QR code data (assuming it's JSON with visitor info)
+        try {
+            const visitorData = JSON.parse(decodedText);
+            populateVisitorForm(visitorData);
+        } catch (e) {
+            // If not JSON, treat as a simple identifier
+            // You could implement additional logic here to look up visitor data
+            console.log('QR code is not JSON, treating as identifier:', decodedText);
+        }
+        
+        // Optionally stop scanning after successful read
+        setTimeout(() => {
+            html5QrcodeScanner.stop().catch(error => {
+                console.error('Failed to stop scanner: ', error);
+            });
+        }, 1000);
+    };
+    
+    const config = {
+        fps: 10,
+        qrbox: { width: 250, height: 250 }
+    };
+    
+    // Start the camera
+    html5QrcodeScanner.start({ facingMode: "environment" }, config, qrCodeSuccessCallback)
+        .catch(err => {
+            console.error('Camera start error: ', err);
+            document.getElementById('qr-reader-results').innerHTML = '<div class="alert alert-danger mt-3">Error accessing camera: ' + err + '</div>';
+        });
+}
+
+// Function to show QR code for a visitor
+function showQRCode(qrCode) {
+    // Create a modal to display the QR code
+    const modalHtml = `
+        <div class="modal fade" id="qrCodeModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Visitor QR Code</h3>
+                        <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                            <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                        </div>
+                    </div>
+                    <div class="modal-body text-center">
+                        <div id="qr-code-container" class="p-3"></div>
+                        <p class="mt-2">QR Code: ${qrCode}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Remove any existing QR code modal
+    const existingModal = document.getElementById('qrCodeModal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+    
+    // Add the modal to the page
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    
+    // Generate the QR code inside the modal
+    const qrContainer = document.getElementById('qr-code-container');
+    
+    // Create a simple visual representation of the QR code
+    // In a real implementation, you would use a proper QR code generation library
+    qrContainer.innerHTML = `
+        <div class="border p-2" style="display:inline-block;background-color:#000;padding:10px;">
+            <div style="background-color:#fff;width:150px;height:150px;display:flex;align-items:center;justify-content:center;font-size:12px;text-align:center;color:#000">
+                [QR CODE]<br>${qrCode.substring(0, 10)}...
+            </div>
+        </div>
+    `;
+    
+    // Show the modal
+    const qrModal = new bootstrap.Modal(document.getElementById('qrCodeModal'));
+    qrModal.show();
+    
+    // Clean up the modal when it's hidden
+    document.getElementById('qrCodeModal').addEventListener('hidden.bs.modal', function () {
+        this.remove();
+    });
+}
+
+// Function to populate visitor form with QR code data
+function populateVisitorForm(visitorData) {
+    // Close the scanner modal
+    bootstrap.Modal.getInstance(document.getElementById('qrScannerModal')).hide();
+    
+    // Open the registration modal
+    bootstrap.Modal.getOrCreateInstance(document.getElementById('registerVisitorModal')).show();
+    
+    // Populate the form fields with data from QR code
+    if (visitorData.visitorName) {
+        document.querySelector('input[name="visitor_name"]').value = visitorData.visitorName;
+    }
+    if (visitorData.visitorPhone) {
+        document.querySelector('input[name="visitor_phone"]').value = visitorData.visitorPhone;
+    }
+    if (visitorData.purpose) {
+        document.querySelector('select[name="purpose"]').value = visitorData.purpose;
+        // Trigger change event to apply any logic
+        const event = new Event('change', { bubbles: true });
+        document.querySelector('select[name="purpose"]').dispatchEvent(event);
+    }
+    if (visitorData.vehicleRegistration) {
+        document.querySelector('input[name="vehicle_registration"]').value = visitorData.vehicleRegistration;
+    }
+    if (visitorData.driverLicense) {
+        document.querySelector('input[name="driver_license"]').value = visitorData.driverLicense;
+    }
+    if (visitorData.hostName) {
+        document.querySelector('input[name="host_name"]').value = visitorData.hostName;
+    }
+    if (visitorData.hostPhone) {
+        document.querySelector('input[name="host_phone"]').value = visitorData.hostPhone;
+    }
+    if (visitorData.specialInstructions) {
+        document.querySelector('textarea[name="special_instructions"]').value = visitorData.specialInstructions;
+    }
+    
+    // Show success message
+    document.getElementById('qr-reader-results').innerHTML = '<div class="alert alert-success mt-3">Visitor data populated from QR code!</div>';
+}
+
+// Initialize QR scanner when modal is shown
+const qrScannerModalEl = document.getElementById('qrScannerModal');
+qrScannerModalEl.addEventListener('shown.bs.modal', function () {
+    // Wait a bit for the modal to be fully rendered
+    setTimeout(initQRScanner, 500);
+});
+
+// Stop QR scanner when modal is hidden
+qrScannerModalEl.addEventListener('hidden.bs.modal', function () {
+    if (html5QrcodeScanner) {
+        html5QrcodeScanner.stop().catch(error => {
+            console.error('Failed to stop scanner on modal close: ', error);
+        });
+    }
+});
+
 </script>
+<script src="../../assets/plugins/custom/html5-qrcode/html5-qrcode.min.js"></script>
 
 <?php require __DIR__ . '/partials/bottom.php'; ?>

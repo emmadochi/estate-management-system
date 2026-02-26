@@ -330,6 +330,42 @@ function _nav_active(string $file, string $current): string {
                                                 </a>
                                             </div>
                                         <?php endif; ?>
+                                        
+                                        <?php if ($isSuper): ?>
+                                            <div class="menu-item pt-5">
+                                                <div class="menu-content"><span class="menu-heading fw-bold text-uppercase fs-7">Billing</span></div>
+                                            </div>
+                                            <div class="menu-item">
+                                                <a class="menu-link<?= _nav_active('subscription_monitoring.php', $current) ?>" href="subscription_monitoring.php">
+                                                    <span class="menu-icon"><i class="ki-duotone ki-credit-cart fs-2"><span class="path1"></span><span class="path2"></span></i></span>
+                                                    <span class="menu-title">Subscriptions</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item">
+                                                <a class="menu-link<?= _nav_active('subscription_analytics.php', $current) ?>" href="subscription_analytics.php">
+                                                    <span class="menu-icon"><i class="ki-duotone ki-chart-line fs-2"><span class="path1"></span><span class="path2"></span></i></span>
+                                                    <span class="menu-title">Analytics</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item">
+                                                <a class="menu-link<?= _nav_active('subscription_plans.php', $current) ?>" href="subscription_plans.php">
+                                                    <span class="menu-icon"><i class="ki-duotone ki-setting fs-2"><span class="path1"></span><span class="path2"></span></i></span>
+                                                    <span class="menu-title">Plan Management</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item">
+                                                <a class="menu-link<?= _nav_active('estate_subscriptions.php', $current) ?>" href="estate_subscriptions.php">
+                                                    <span class="menu-icon"><i class="ki-duotone ki-home fs-2"><span class="path1"></span><span class="path2"></span></i></span>
+                                                    <span class="menu-title">Estate Assignments</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item">
+                                                <a class="menu-link<?= _nav_active('subscription_payments.php', $current) ?>" href="subscription_payments.php">
+                                                    <span class="menu-icon"><i class="ki-duotone ki-bill fs-2"><span class="path1"></span><span class="path2"></span></i></span>
+                                                    <span class="menu-title">Subscription Payments</span>
+                                                </a>
+                                            </div>
+                                        <?php endif; ?>
 
                                         <div class="menu-item pt-5">
                                             <div class="menu-content"><span class="menu-heading fw-bold text-uppercase fs-7">Operations</span></div>

@@ -259,6 +259,12 @@ function _tenant_nav_active(string $file, string $current): string {
                                             </a>
                                         </div>
                                         <div class="menu-item">
+                                            <a class="menu-link<?= _tenant_nav_active('ai_chat.php', $current) ?>" href="ai_chat.php">
+                                                <span class="menu-icon"><i class="ki-duotone ki-message-programming fs-2"><span class="path1"></span><span class="path2"></span></i></span>
+                                                <span class="menu-title">AI Support Chat</span>
+                                            </a>
+                                        </div>
+                                        <div class="menu-item">
                                             <a class="menu-link<?= _tenant_nav_active('emergency_alert_pro.php', $current) ?>" href="emergency_alert_pro.php">
                                                 <span class="menu-icon"><i class="ki-duotone ki-siren fs-2"><span class="path1"></span><span class="path2"></span></i></span>
                                                 <span class="menu-title">Emergency Alert</span>
