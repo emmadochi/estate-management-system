@@ -221,11 +221,11 @@ require __DIR__ . '/partials/top.php';
             <?php if (!empty($selectedTicket['before_photo'])): ?>
             <div class="col-4">
               <div class="text-gray-600 fs-8 mb-1">Before</div>
-              <img src="/ESTATEMANAGEMENT/uploads/<?= e($selectedTicket['before_photo']) ?>" 
+              <img src="<?= app_url('uploads/' . e($selectedTicket['before_photo'])) ?>" 
                    alt="Before" class="img-thumbnail img-zoomable" 
                    style="width: 100%; height: 120px; object-fit: cover; cursor: pointer;"
                    data-bs-toggle="modal" data-bs-target="#imageModal" 
-                   data-image-src="/ESTATEMANAGEMENT/uploads/<?= e($selectedTicket['before_photo']) ?>" 
+                   data-image-src="<?= app_url('uploads/' . e($selectedTicket['before_photo'])) ?>" 
                    data-image-title="Before Photo">
             </div>
             <?php endif; ?>
@@ -233,11 +233,11 @@ require __DIR__ . '/partials/top.php';
             <?php if (!empty($selectedTicket['after_photo'])): ?>
             <div class="col-4">
               <div class="text-gray-600 fs-8 mb-1">After</div>
-              <img src="/ESTATEMANAGEMENT/uploads/<?= e($selectedTicket['after_photo']) ?>" 
+              <img src="<?= app_url('uploads/' . e($selectedTicket['after_photo'])) ?>" 
                    alt="After" class="img-thumbnail img-zoomable" 
                    style="width: 100%; height: 120px; object-fit: cover; cursor: pointer;"
                    data-bs-toggle="modal" data-bs-target="#imageModal" 
-                   data-image-src="/ESTATEMANAGEMENT/uploads/<?= e($selectedTicket['after_photo']) ?>" 
+                   data-image-src="<?= app_url('uploads/' . e($selectedTicket['after_photo'])) ?>" 
                    data-image-title="After Photo">
             </div>
             <?php endif; ?>
@@ -245,11 +245,11 @@ require __DIR__ . '/partials/top.php';
             <?php if (!empty($selectedTicket['completion_photo'])): ?>
             <div class="col-4">
               <div class="text-gray-600 fs-8 mb-1">Completion</div>
-              <img src="/ESTATEMANAGEMENT/uploads/<?= e($selectedTicket['completion_photo']) ?>" 
+              <img src="<?= app_url('uploads/' . e($selectedTicket['completion_photo'])) ?>" 
                    alt="Completion" class="img-thumbnail img-zoomable" 
                    style="width: 100%; height: 120px; object-fit: cover; cursor: pointer;"
                    data-bs-toggle="modal" data-bs-target="#imageModal" 
-                   data-image-src="/ESTATEMANAGEMENT/uploads/<?= e($selectedTicket['completion_photo']) ?>" 
+                   data-image-src="<?= app_url('uploads/' . e($selectedTicket['completion_photo'])) ?>" 
                    data-image-title="Completion Photo">
             </div>
             <?php endif; ?>

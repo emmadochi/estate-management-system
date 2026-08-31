@@ -46,7 +46,27 @@ function verify_csrf(): void {
     }
 }
 
+function app_base_url(): string {
+    $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
+    if (stripos($scriptName, '/ESTATEMANAGEMENT/') !== false) {
+        return '/ESTATEMANAGEMENT';
+    }
+    return '';
+}
+
+function app_url(string $path = ''): string {
+    $base = app_base_url();
+    $path = '/' . ltrim($path, '/');
+    return $base . $path;
+}
+
 function redirect(string $url): void {
+    if (strpos($url, 'http://') !== 0 && strpos($url, 'https://') !== 0 && strpos($url, '/') === 0) {
+        $base = app_base_url();
+        if ($base !== '' && strpos($url, $base . '/') !== 0 && $url !== $base) {
+            $url = $base . $url;
+        }
+    }
     header('Location: ' . $url);
     exit;
 }
@@ -107,7 +127,7 @@ function require_login(array $roles = []): void {
     if (!$user) {
         $returnUrl = $_SERVER['REQUEST_URI'] ?? '/';
         $encoded = urlencode($returnUrl);
-        redirect('/ESTATEMANAGEMENT/pages/authentication/layouts/corporate/sign-in.php?return=' . $encoded);
+        redirect(app_url('pages/authentication/layouts/corporate/sign-in.php?return=' . $encoded));
     }
 
     if ($roles && !in_array($user['role'] ?? null, $roles, true)) {
@@ -637,26 +657,22 @@ function redirect_after_login(string $role): void {
     // Adjust redirect per role to Keen dashboards
     switch ($role) {
         case 'super_admin':
-            $target = '/ESTATEMANAGEMENT/pages/admin/dashboard.php';
-            break;
         case 'estate_admin':
         case 'property_manager':
-            $target = '/ESTATEMANAGEMENT/pages/admin/dashboard.php';
+        case 'staff':
+            $target = app_url('pages/admin/dashboard.php');
             break;
         case 'tenant':
-            $target = '/ESTATEMANAGEMENT/pages/tenant/dashboard.php';
+            $target = app_url('pages/tenant/dashboard.php');
             break;
         case 'artisan':
-            $target = '/ESTATEMANAGEMENT/pages/artisan/dashboard.php';
-            break;
-        case 'staff':
-            $target = '/ESTATEMANAGEMENT/pages/admin/dashboard.php';
+            $target = app_url('pages/artisan/dashboard.php');
             break;
         case 'security':
-            $target = '/ESTATEMANAGEMENT/pages/security/index.php';
+            $target = app_url('pages/security/index.php');
             break;
         default:
-            $target = '/ESTATEMANAGEMENT/pages/admin/dashboard.php';
+            $target = app_url('pages/admin/dashboard.php');
             break;
     }
     redirect($target);

@@ -5,5 +5,5 @@ if (current_user()) {
     audit_log('logout', 'user', current_user_id(), null, null);
 }
 logout_user();
-redirect('/ESTATEMANAGEMENT/pages/authentication/layouts/corporate/sign-in.php');
+redirect(app_url('pages/authentication/layouts/corporate/sign-in.php'));
 

@@ -107,7 +107,7 @@ if ($method === 'POST') {
                     'Status: approved',
                 ];
                 $bodyText = implode("\n", $bodyLines);
-                $link = '/ESTATEMANAGEMENT/pages/tenant/payments.php';
+                $link = app_url('pages/tenant/payments.php');
 
                 notify_user($tenantUserId, 'payment_approved', $title, $bodyText, $link);
 
@@ -163,7 +163,7 @@ if ($method === 'POST') {
                     'Reason: ' . $reason,
                 ];
                 $bodyText = implode("\n", $bodyLines);
-                $link = '/ESTATEMANAGEMENT/pages/tenant/payments.php';
+                $link = app_url('pages/tenant/payments.php');
 
                 notify_user($tenantUserId, 'payment_rejected', $title, $bodyText, $link);
 

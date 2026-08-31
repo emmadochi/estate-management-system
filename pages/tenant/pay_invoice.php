@@ -167,7 +167,7 @@ if ($method === 'POST') {
             'Status: pending review',
         ];
         $bodyText = implode("\n", array_filter($bodyLines));
-        $link = '/ESTATEMANAGEMENT/pages/admin/payment_review.php?estate_id=' . (int)$invoice['estate_id'] . '&payment_id=' . $paymentId;
+        $link = app_url('pages/admin/payment_review.php?estate_id=' . (int)$invoice['estate_id'] . '&payment_id=' . $paymentId);
         notify_estate_admins((int)$invoice['estate_id'], 'payment_pending', $title, $bodyText, $link);
 
         flash_set('success', 'Payment submitted for verification. You will be notified once it is approved.');

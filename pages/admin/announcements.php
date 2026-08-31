@@ -40,8 +40,8 @@ if ($method === 'POST') {
             $notifType = 'announcement_urgent';
         }
 
-        $tenantLink = '/ESTATEMANAGEMENT/pages/tenant/announcements.php#ann-' . $announcementId;
-        $adminLink = '/ESTATEMANAGEMENT/pages/admin/announcements.php?estate_id=' . $estateId . '&edit_id=' . $announcementId;
+        $tenantLink = app_url('pages/tenant/announcements.php#ann-' . $announcementId);
+        $adminLink = app_url('pages/admin/announcements.php?estate_id=' . $estateId . '&edit_id=' . $announcementId);
 
         if ($audience === 'all') {
             notify_estate_audience($estateId, 'tenants', $notifType, $title, $body, $tenantLink);
