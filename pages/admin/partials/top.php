@@ -10,11 +10,13 @@ $isEstateAdmin = $role === 'estate_admin';
 $isPropertyManager = $role === 'property_manager';
 $isStaff = $role === 'staff';
 $isSecurity = $role === 'security';
+$isAccountant = $role === 'accountant';
 
 $canManageCoreEstates = $isSuper || $isEstateAdmin || $isPropertyManager; // properties, units, tenants, leases
-$canSeeUnits = $canManageCoreEstates || $isStaff || $isSecurity;          // units, maintenance
-$canSeeFinance = $canManageCoreEstates;                                   // invoices, payments
-$canSeeVendors = $canManageCoreEstates;                                   // vendors
+$canSeeUnits = $canManageCoreEstates || $isStaff || $isSecurity || $isAccountant;          // units, maintenance
+$canSeeFinance = $canManageCoreEstates || $isAccountant;                                   // invoices, payments
+$canSeeAccountingSuite = $isSuper || $isEstateAdmin || $isPropertyManager || $isAccountant; // accounting hub
+$canSeeVendors = $canManageCoreEstates || $isAccountant;                                   // vendors
 $canSeeAnnouncements = $canManageCoreEstates;                             // announcements
 $pageHeading = $pageHeading ?? preg_replace('/\s+–\s+EstatePro.*/u', '', (string)$pageTitle);
 $current = basename((string)($_SERVER['SCRIPT_NAME'] ?? ''));
@@ -308,9 +310,15 @@ function _nav_active(string $file, string $current): string {
                                         <?php endif; ?>
 
                                         <div class="menu-item pt-5">
-                                            <div class="menu-content"><span class="menu-heading fw-bold text-uppercase fs-7">Finance</span></div>
+                                            <div class="menu-content"><span class="menu-heading fw-bold text-uppercase fs-7">Accounting & Finance</span></div>
                                         </div>
-                                        <?php if ($canSeeFinance): ?>
+                                        <?php if ($canSeeAccountingSuite): ?>
+                                            <div class="menu-item">
+                                                <a class="menu-link<?= _nav_active('accounting_dashboard.php', $current) ?>" href="accounting_dashboard.php">
+                                                    <span class="menu-icon"><i class="ki-duotone ki-chart-pie-simple fs-2"><span class="path1"></span><span class="path2"></span></i></span>
+                                                    <span class="menu-title">Financial Overview</span>
+                                                </a>
+                                            </div>
                                             <div class="menu-item">
                                                 <a class="menu-link<?= _nav_active('invoices.php', $current) ?>" href="invoices.php">
                                                     <span class="menu-icon"><i class="ki-duotone ki-bill fs-2"><span class="path1"></span><span class="path2"></span></i></span>
@@ -320,7 +328,37 @@ function _nav_active(string $file, string $current): string {
                                             <div class="menu-item">
                                                 <a class="menu-link<?= _nav_active('payments.php', $current) ?>" href="payments.php">
                                                     <span class="menu-icon"><i class="ki-duotone ki-credit-cart fs-2"><span class="path1"></span><span class="path2"></span></i></span>
-                                                    <span class="menu-title">Payments</span>
+                                                    <span class="menu-title">Payments & Receipts</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item">
+                                                <a class="menu-link<?= _nav_active('expenses.php', $current) ?>" href="expenses.php">
+                                                    <span class="menu-icon"><i class="ki-duotone ki-wallet fs-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i></span>
+                                                    <span class="menu-title">Expenses & Outflows</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item">
+                                                <a class="menu-link<?= _nav_active('financial_reports.php', $current) ?>" href="financial_reports.php">
+                                                    <span class="menu-icon"><i class="ki-duotone ki-document fs-2"><span class="path1"></span><span class="path2"></span></i></span>
+                                                    <span class="menu-title">Financial Statements</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item">
+                                                <a class="menu-link<?= _nav_active('reconciliation.php', $current) ?>" href="reconciliation.php">
+                                                    <span class="menu-icon"><i class="ki-duotone ki-arrows-circle fs-2"><span class="path1"></span><span class="path2"></span></i></span>
+                                                    <span class="menu-title">Bank Reconciliation</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item">
+                                                <a class="menu-link<?= _nav_active('budgets.php', $current) ?>" href="budgets.php">
+                                                    <span class="menu-icon"><i class="ki-duotone ki-chart-simple-3 fs-2"><span class="path1"></span><span class="path2"></span></i></span>
+                                                    <span class="menu-title">Budgets & Variance</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item">
+                                                <a class="menu-link<?= _nav_active('chart_of_accounts.php', $current) ?>" href="chart_of_accounts.php">
+                                                    <span class="menu-icon"><i class="ki-duotone ki-category fs-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i></span>
+                                                    <span class="menu-title">Chart of Accounts</span>
                                                 </a>
                                             </div>
                                             <div class="menu-item">

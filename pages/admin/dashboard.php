@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../app/bootstrap.php';
 
-require_login(['super_admin', 'estate_admin', 'property_manager', 'staff', 'security']);
+require_login(['super_admin', 'estate_admin', 'property_manager', 'staff', 'security', 'accountant']);
 
 $pageTitle = 'Dashboard – EstatePro';
 $db = db();

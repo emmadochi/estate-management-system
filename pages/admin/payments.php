@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../app/bootstrap.php';
 
-require_login(['super_admin', 'estate_admin', 'property_manager']);
+require_login(['super_admin', 'estate_admin', 'property_manager', 'accountant']);
 
 $pageTitle = 'Payments – EstatePro';
 $db = db();

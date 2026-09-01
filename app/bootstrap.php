@@ -142,6 +142,20 @@ function is_super_admin(): bool {
     return $u && (($u['role'] ?? null) === 'super_admin');
 }
 
+function is_accountant(): bool {
+    $u = current_user();
+    return $u && (($u['role'] ?? null) === 'accountant');
+}
+
+function can_manage_finance(): bool {
+    $u = current_user();
+    if (!$u) {
+        return false;
+    }
+    $role = (string)($u['role'] ?? '');
+    return in_array($role, ['super_admin', 'estate_admin', 'property_manager', 'accountant'], true);
+}
+
 function current_user_id(): ?int {
     $u = current_user();
     return $u ? (int)$u['id'] : null;
@@ -848,4 +862,83 @@ function handle_receipt_upload(string $field = 'receipt', ?string $prefix = null
 
     return $filename;
 }
+
+/** File upload helpers for expense receipts / invoices */
+function get_expense_upload_dir(): string {
+    $dir = __DIR__ . '/../uploads/expenses';
+    if (!is_dir($dir)) {
+        @mkdir($dir, 0755, true);
+    }
+    return $dir;
+}
+
+function get_expense_receipt_url(?string $file): ?string {
+    $file = trim((string)$file);
+    if ($file === '') {
+        return null;
+    }
+    return '../../uploads/expenses/' . basename($file);
+}
+
+function handle_expense_receipt_upload(string $field = 'receipt_file', ?string $prefix = null): ?string {
+    if (!isset($_FILES[$field]) || ($_FILES[$field]['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_NO_FILE) {
+        return null;
+    }
+    if (($_FILES[$field]['error'] ?? UPLOAD_ERR_OK) !== UPLOAD_ERR_OK) {
+        flash_set('error', 'Failed to upload expense receipt.');
+        return null;
+    }
+
+    $file = $_FILES[$field];
+    $allowedTypes = [
+        'image/jpeg',
+        'image/jpg',
+        'image/png',
+        'image/gif',
+        'image/webp',
+        'application/pdf',
+    ];
+    $maxSize = 10 * 1024 * 1024; // 10MB
+
+    if (!in_array((string)($file['type'] ?? ''), $allowedTypes, true)) {
+        flash_set('error', 'Invalid file format. Upload an image (JPEG/PNG/WebP) or PDF.');
+        return null;
+    }
+    if ((int)($file['size'] ?? 0) > $maxSize) {
+        flash_set('error', 'Receipt file too large. Maximum size is 10MB.');
+        return null;
+    }
+
+    $ext = 'bin';
+    $mime = (string)($file['type'] ?? '');
+    if (in_array($mime, ['image/jpeg', 'image/jpg'], true)) {
+        $ext = 'jpg';
+    } elseif ($mime === 'image/png') {
+        $ext = 'png';
+    } elseif ($mime === 'image/gif') {
+        $ext = 'gif';
+    } elseif ($mime === 'image/webp') {
+        $ext = 'webp';
+    } elseif ($mime === 'application/pdf') {
+        $ext = 'pdf';
+    }
+
+    $uploadDir = get_expense_upload_dir();
+    $safePrefix = $prefix ? preg_replace('/[^a-zA-Z0-9_\-]/', '_', $prefix) : 'exp_receipt';
+    $filename = $safePrefix . '_' . date('YmdHis') . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
+    $targetPath = $uploadDir . '/' . $filename;
+
+    if (!move_uploaded_file((string)$file['tmp_name'], $targetPath)) {
+        flash_set('error', 'Failed to save uploaded expense file.');
+        return null;
+    }
+
+    return $filename;
+}
+
+function format_money($amount, string $currency = '₦'): string {
+    $num = (float)($amount ?? 0);
+    return $currency . number_format($num, 2);
+}
+
 

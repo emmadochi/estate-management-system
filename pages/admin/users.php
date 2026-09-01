@@ -24,7 +24,7 @@ if ($method === 'POST') {
         $status = (string)post_param('status', 'active');
         $password = (string)post_param('password', '');
 
-        $validRoles = ['super_admin', 'estate_admin', 'property_manager', 'tenant', 'staff', 'security'];
+        $validRoles = ['super_admin', 'estate_admin', 'property_manager', 'tenant', 'staff', 'security', 'artisan', 'accountant'];
         $validStatuses = ['active', 'inactive', 'suspended'];
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -271,8 +271,8 @@ require __DIR__ . '/partials/top.php';
               <label class="form-label">Role</label>
               <?php $roleVal = (string)($editing['role'] ?? 'tenant'); ?>
               <select class="form-select" name="role">
-                <?php foreach (['super_admin','estate_admin','property_manager','tenant','staff','security'] as $r): ?>
-                  <option value="<?= e($r) ?>" <?= $roleVal === $r ? 'selected' : '' ?>><?= e($r) ?></option>
+                <?php foreach (['super_admin','estate_admin','property_manager','accountant','tenant','staff','security','artisan'] as $r): ?>
+                  <option value="<?= e($r) ?>" <?= $roleVal === $r ? 'selected' : '' ?>><?= e(ucwords(str_replace('_', ' ', $r))) ?></option>
                 <?php endforeach; ?>
               </select>
             </div>
