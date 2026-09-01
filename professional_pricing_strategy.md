@@ -3,65 +3,48 @@
 ## 🎯 Market Positioning
 **Premium Positioning**: Position as Nigeria's most comprehensive estate management platform with enterprise-grade features
 
-##💼 Pricing Tiers
+## 💼 Pricing Tiers (3-Tier Model)
 
 ### 1. STARTER PLAN
-**₦3,500/month** (₦42,000 annually)
-- Perfect for: Small property managers, individual landlords
-- Features:
-  - Up to 15 units/apartments
-  - 1 estate management
-  - 2 admin users
-  - Basic rent collection
-  - Maintenance ticket system
-  - Visitor management
-  - Mobile app access
-  - Email support
+**₦20,000/month** (₦240,000 annually / ₦60,000 quarterly)
+- **Target**: Small property managers, private residential communities, individual landlords
+- **Features**:
+  - Up to 50 units/apartments
+  - 1 - 2 estates management
+  - 3 admin users
+  - Automated rent collection & invoicing
+  - Digital tenant portal & receipt downloads
+  - Maintenance ticket tracking system
+  - Visitor passcode verification
+  - Standard email & chat support
 
 ### 2. PROFESSIONAL PLAN
-**₦7,500/month** (₦90,000 annually) - **RECOMMENDED**
-- Perfect for: Growing real estate companies, medium portfolios
-- Features:
-  - Up to 50 units/apartments  
-  - 3 estates management
-  - 5 admin users
-  - Advanced rent collection & invoicing
-  - Multi-vendor maintenance management
-  - Security personnel management
-  - Financial reporting dashboard
-  - SMS notifications
-  - Priority email support
-  - API access for integrations
+**₦35,000/month** (₦420,000 annually / ₦105,000 quarterly) - **RECOMMENDED / MOST POPULAR**
+- **Target**: Growing real estate companies, facility management firms, medium-to-large residential estates
+- **Features**:
+  - Up to 150 units/apartments  
+  - Up to 5 estates management
+  - 10 admin & staff user accounts
+  - Security gatehouse console & shift rosters
+  - Multi-vendor & artisan quotation/approval workflow
+  - Emergency panic SOS dispatch matrix
+  - SMS & email broadcast system
+  - Financial revenue, invoice aging & audit reports
+  - Priority support & free assisted onboarding
 
-### 3. BUSINESS PLAN
-**₦15,000/month** (₦180,000 annually)
-- Perfect for: Large property management companies, developers
-- Features:
-  - Up to 150 units/apartments
-  - 10 estates management
-  - 10 admin users
-  - Multi-currency support
-  - Advanced analytics & forecasting
-  - AI-powered tenant screening
-  - Custom reporting
-  - Dedicated account manager
-  - 24/7 phone support
-  - White-label branding options
-
-### 4. ENTERPRISE PLAN
-**₦35,000/month** (₦420,000 annually)
-- Perfect for: Large real estate corporations, institutional investors
-- Features:
+### 3. CUSTOM / ENTERPRISE PLAN
+**Custom Pricing** (Tailored Contract & SLA)
+- **Target**: Large real estate corporations, institutional developers, multi-estate conglomerates, commercial plazas
+- **Features**:
   - Unlimited units/apartments
   - Unlimited estates
-  - Unlimited users
-  - Full AI suite (predictive maintenance, rent forecasting)
-  - IoT integration capabilities
-  - Advanced compliance tools
-  - Custom development
-  - SLA guarantees
-  - On-premise deployment option
-  - Dedicated technical team
+  - Unlimited admin & staff users
+  - Custom branding & white-label domain deployment
+  - Dedicated cloud server / on-premise deployment
+  - IoT smart prepaid meter & utility integration
+  - Bespoke custom module & API development
+  - Dedicated technical account manager & 24/7 SLA guarantee
+  - On-site staff training & full migration assistance
 
 ##🚀 Additional Revenue Streams
 

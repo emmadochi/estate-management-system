@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EstatePro - Comprehensive Product Profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-dark: #0f172a;
+      --primary-accent: #3b82f6;
+      --secondary: #0d9488;
+      --secondary-light: #ccfbf1;
+      --accent: #f59e0b;
+      --text-dark: #0f172a;
+      --text-muted: #475569;
+      --text-light: #94a3b8;
+      --bg-light: #f8fafc;
+      --bg-white: #ffffff;
+      --border: #e2e8f0;
+      --card-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
+      --success: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-dark);
+      background: #e2e8f0;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .no-print-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #0f172a;
+      color: white;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 9999;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .btn-print {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      border: none;
+      padding: 10px 22px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+    }
+    .btn-print:hover {
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+      transform: translateY(-1px);
+    }
+
+    .document-container {
+      max-width: 900px;
+      margin: 70px auto 40px;
+      background: white;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+    }
+
+    /* Page Setup */
+    .doc-page {
+      position: relative;
+      min-height: 1120px;
+      padding: 48px 56px;
+      background: white;
+      page-break-after: always;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .doc-page:last-child {
+      page-break-after: auto;
+    }
+
+    /* Header & Footer in Pages */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 28px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .page-header .brand {
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .page-footer {
+      margin-top: auto;
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-light);
+    }
+
+    /* Cover Page */
+    .cover-page {
+      background: linear-gradient(145deg, #091024 0%, #0f1d40 45%, #1e3a8a 100%);
+      color: white;
+      padding: 60px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover-page::before {
+      content: "";
+      position: absolute;
+      top: -150px;
+      right: -150px;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59,130,246,0.25) 0%, rgba(59,130,246,0) 70%);
+      pointer-events: none;
+    }
+
+    .cover-page::after {
+      content: "";
+      position: absolute;
+      bottom: -100px;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(13,148,136,0.25) 0%, rgba(13,148,136,0) 70%);
+      pointer-events: none;
+    }
+
+    .cover-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #93c5fd;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .cover-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      color: #ffffff;
+    }
+
+    .cover-title span {
+      background: linear-gradient(90deg, #60a5fa, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cover-subtitle {
+      font-size: 18px;
+      color: #cbd5e1;
+      font-weight: 400;
+      max-width: 600px;
+      margin-bottom: 40px;
+      line-height: 1.5;
+    }
+
+    .cover-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .metric-box {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 18px;
+      backdrop-filter: blur(8px);
+    }
+
+    .metric-number {
+      font-size: 28px;
+      font-weight: 800;
+      font-family: 'Space Grotesk', sans-serif;
+      color: #38bdf8;
+      margin-bottom: 4px;
+    }
+
+    .metric-label {
+      font-size: 12px;
+      color: #94a3b8;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .cover-meta {
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    .cover-meta strong {
+      color: #f1f5f9;
+      display: block;
+      font-size: 14px;
+      margin-top: 2px;
+    }
+
+    /* Headings & Content Styles */
+    h2.section-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      color: var(--primary-dark);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px solid #eff6ff;
+      padding-bottom: 8px;
+    }
+
+    h2.section-heading .badge-num {
+      background: var(--primary-accent);
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    h3.sub-heading {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 14px 0 8px;
+    }
+
+    p {
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    /* Feature Grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .feature-card {
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      transition: all 0.2s;
+    }
+
+    .feature-card.highlight {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+    }
+
+    .feature-icon {
+      font-size: 20px;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+
+    .feature-card h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 6px;
+    }
+
+    .feature-card p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      line-height: 1.45;
+    }
+
+    .feature-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .feature-card ul li {
+      font-size: 11.5px;
+      color: var(--text-dark);
+      padding: 2px 0 2px 14px;
+      position: relative;
+    }
+
+    .feature-card ul li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--secondary);
+      font-weight: bold;
+    }
+
+    /* Tables */
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+
+    .spec-table th {
+      background: #f1f5f9;
+      color: var(--primary-dark);
+      text-align: left;
+      padding: 10px 12px;
+      font-weight: 700;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .spec-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .spec-table tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    .spec-table td.strong {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    /* Role Badge Matrix */
+    .role-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .badge-super { background: #fee2e2; color: #991b1b; }
+    .badge-admin { background: #e0e7ff; color: #3730a3; }
+    .badge-tenant { background: #dcfce7; color: #166534; }
+    .badge-sec { background: #fef3c7; color: #92400e; }
+    .badge-artisan { background: #ede9fe; color: #5b21b6; }
+
+    /* Highlights Callout */
+    .callout-box {
+      background: linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%);
+      border-left: 4px solid var(--secondary);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+      font-size: 12.5px;
+      color: #134e4a;
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: white;
+        color: black;
+      }
+      .no-print-bar {
+        display: none !important;
+      }
+      .document-container {
+        max-width: 100%;
+        margin: 0;
+        box-shadow: none;
+      }
+      .doc-page {
+        min-height: 100vh;
+        padding: 40px 48px;
+        page-break-after: always !important;
+        break-after: page !important;
+      }
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Print Controls -->
+  <div class="no-print-bar">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <strong style="font-size:16px;">🏢 EstatePro Product Profile</strong>
+      <span style="background:#1e293b; padding:3px 8px; border-radius:4px; font-size:12px; color:#94a3b8;">Technical & System Overview v2.5</span>
+    </div>
+    <div style="display:flex; gap:10px;">
+      <button class="btn-print" onclick="window.print()">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/><path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/></svg>
+        Save as PDF / Print
+      </button>
+    </div>
+  </div>
+
+  <div class="document-container">
+
+    <!-- PAGE 1: COVER PAGE -->
+    <div class="doc-page cover-page">
+      <div>
+        <div class="cover-badge">Enterprise Edition &bull; NAW PropertyFlow Suite</div>
+        <h1 class="cover-title">Estate<span>Pro</span> Cloud<br>Management System</h1>
+        <p class="cover-subtitle">A Unified Digital Operating Platform for Residential Estates, Commercial Complexes, Facility Managers & Property Portfolios.</p>
+        
+        <div class="cover-metrics">
+          <div class="metric-box">
+            <div class="metric-number">99.4%</div>
+            <div class="metric-label">Collection Rate</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-number">80%</div>
+            <div class="metric-label">Admin Work Reduction</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-number">100%</div>
+            <div class="metric-label">Real-Time Audit Trail</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="cover-meta">
+          <div>
+            <span>PLATFORM:</span>
+            <strong>EstatePro v2.5 Enterprise</strong>
+          </div>
+          <div>
+            <span>LIVE DEPLOYMENT:</span>
+            <strong>ep.nawpropertyflow.com.ng</strong>
+          </div>
+          <div>
+            <span>SECURITY LEVEL:</span>
+            <strong>RBAC &bull; AES &bull; CSRF Guard</strong>
+          </div>
+          <div>
+            <span>DATE:</span>
+            <strong>September 2026</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 2: EXECUTIVE SUMMARY & ARCHITECTURE -->
+    <div class="doc-page">
+      <div class="page-header">
+        <div class="brand">🏢 EstatePro <span>&bull; Product Profile</span></div>
+        <div>System Architecture & Overview</div>
+      </div>
+
+      <h2 class="section-heading"><span class="badge-num">1</span> Executive Overview & Problem Context</h2>
+      <p>Traditional real estate and estate operations throughout emerging markets remain severely bottlenecked by manual spreadsheets, WhatsApp dispatch, paper receipts, uncoordinated gate security, and delayed rent invoicing. <strong>EstatePro</strong> bridges this gap by unifying tenant self-service, financial administration, vendor workflows, emergency response, and physical gatekeeping into one high-performance web platform.</p>
+
+      <div class="callout-box">
+        <strong>Mission:</strong> To provide African real estate developers, facilities managers, and multi-estate operators with an airtight, automated operating system that accelerates revenue collection, eliminates operational blind spots, and delivers a 5-star living experience to residents.
+      </div>
+
+      <h2 class="section-heading" style="margin-top:20px;"><span class="badge-num">2</span> Multi-Tier Role Hierarchy & Access Matrix</h2>
+      <p>EstatePro implements granular Role-Based Access Control (RBAC) guaranteeing complete separation of duties, tenant privacy, and audit accountability across every operational tier:</p>
+
+      <table class="spec-table">
+        <thead>
+          <tr>
+            <th>Role</th>
+            <th>Primary Capabilities & Scope</th>
+            <th>Default Dashboard</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="role-badge badge-super">Super Admin</span></td>
+            <td>Global platform control, subscription oversight, estate creation, billing tier configuration, system audits.</td>
+            <td>Master Administration Hub</td>
+          </tr>
+          <tr>
+            <td><span class="role-badge badge-admin">Estate Admin</span></td>
+            <td>Full estate operations, property units, lease agreements, invoice approvals, staff allocation, announcements.</td>
+            <td>Executive Estate Dashboard</td>
+          </tr>
+          <tr>
+            <td><span class="role-badge badge-admin">Property Manager</span></td>
+            <td>Day-to-day tenancy oversight, rent ledger verification, maintenance approvals, vendor quotation review.</td>
+            <td>Operations Dashboard</td>
+          </tr>
+          <tr>
+            <td><span class="role-badge badge-sec">Security Personnel</span></td>
+            <td>Gate pass verification, visitor logging, shift scheduling, patrol logs, emergency dispatch triggers.</td>
+            <td>Gatehouse Security Console</td>
+          </tr>
+          <tr>
+            <td><span class="role-badge badge-artisan">Artisan / Vendor</span></td>
+            <td>Work order quotations, ticket acceptance, before/after photo documentation, completion submission.</td>
+            <td>Artisan Portal</td>
+          </tr>
+          <tr>
+            <td><span class="role-badge badge-tenant">Tenant / Resident</span></td>
+            <td>Rent payments, digital receipt downloads, issue ticketing, visitor passes, community notices, emergency SOS.</td>
+            <td>Tenant Mobile-Ready Portal</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="page-footer">
+        <div>EstatePro Platform Profile &bull; Confidential</div>
+        <div>Page 2 of 4</div>
+      </div>
+    </div>
+
+    <!-- PAGE 3: CORE PRODUCT MODULES -->
+    <div class="doc-page">
+      <div class="page-header">
+        <div class="brand">🏢 EstatePro <span>&bull; Product Profile</span></div>
+        <div>Core Functional Modules</div>
+      </div>
+
+      <h2 class="section-heading"><span class="badge-num">3</span> Functional Module Breakdown</h2>
+
+      <div class="feature-grid">
+        <div class="feature-card highlight">
+          <div class="feature-icon">🏢</div>
+          <h4>1. Property, Block & Unit Management</h4>
+          <p>Multi-estate hierarchy supporting blocks, flats, duplexes, shops, and standalone plots.</p>
+          <ul>
+            <li>Real-time occupancy & vacancy indicators</li>
+            <li>Digital lease agreements & tenancy start/expiry</li>
+            <li>Unit allocation letters & history logs</li>
+            <li>Owner vs. Tenant portfolio mapping</li>
+          </ul>
+        </div>
+
+        <div class="feature-card highlight">
+          <div class="feature-icon">💳</div>
+          <h4>2. Automated Billing & Rent Engine</h4>
+          <p>End-to-end accounting engine eliminating slow invoicing and uncollected service charges.</p>
+          <ul>
+            <li>Automated rent & recurring service charges</li>
+            <li>Bank transfer proof upload & auto-receipts</li>
+            <li>Overdue rent reminders via SMS & Email</li>
+            <li>Multi-currency and soft POS integration ready</li>
+          </ul>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🛠️</div>
+          <h4>3. Maintenance & Vendor Lifecycle</h4>
+          <p>Full lifecycle tracking of facility repairs from resident ticket to contractor payment.</p>
+          <ul>
+            <li>Before / After photographic evidence upload</li>
+            <li>Artisan job quotations and admin approval flow</li>
+            <li>Quality assurance check and resident sign-off</li>
+            <li>Historical maintenance cost accounting per unit</li>
+          </ul>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h4>4. Security & Visitor Gate-Pass</h4>
+          <p>Modern access control replacing paper gate books with encrypted digital access.</p>
+          <ul>
+            <li>Resident-generated visitor access codes & QR</li>
+            <li>Guard gatehouse scan, validation & check-in</li>
+            <li>Security staff shift rosters and attendance logs</li>
+            <li>Visitor blacklist & suspicious entry alerts</li>
+          </ul>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🚨</div>
+          <h4>5. Emergency Response Matrix</h4>
+          <p>One-touch panic system dispatching security and medical teams within seconds.</p>
+          <ul>
+            <li>Tenant SOS alert with exact unit geocoding</li>
+            <li>Instant notification to active gate guards</li>
+            <li>Incident categorization (Medical, Fire, Intrusion)</li>
+            <li>Response time SLA metrics and post-incident logs</li>
+          </ul>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📢</div>
+          <h4>6. Communication & Announcements</h4>
+          <p>Targeted broadcasting eliminating noisy WhatsApp groups and missed notices.</p>
+          <ul>
+            <li>Estate-wide or block-specific broadcast notices</li>
+            <li>In-app, Email, and SMS multi-channel alerts</li>
+            <li>Important document attachments (Bylaws, AGMs)</li>
+            <li>Read-receipt metrics and tenant acknowledgment</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="page-footer">
+        <div>EstatePro Platform Profile &bull; Confidential</div>
+        <div>Page 3 of 4</div>
+      </div>
+    </div>
+
+    <!-- PAGE 4: TECHNICAL SPECS, SECURITY & DEPLOYMENT -->
+    <div class="doc-page">
+      <div class="page-header">
+        <div class="brand">🏢 EstatePro <span>&bull; Product Profile</span></div>
+        <div>Technical Specifications & Roadmap</div>
+      </div>
+
+      <h2 class="section-heading"><span class="badge-num">4</span> Technical Specifications & Security Architecture</h2>
+      
+      <table class="spec-table">
+        <tbody>
+          <tr>
+            <td class="strong" style="width:25%;">Backend Technology</td>
+            <td>PHP 8.2+ Enterprise Architecture with secure PDO Singleton abstraction, strict typing, and high-concurrency request routing.</td>
+          </tr>
+          <tr>
+            <td class="strong">Database Engine</td>
+            <td>MySQL 8.0 / MariaDB with UTF8mb4 full unicode charset, indexed relational schemas, and transaction rollbacks.</td>
+          </tr>
+          <tr>
+            <td class="strong">Frontend Architecture</td>
+            <td>Modern responsive UI with Metronic/Keen UI components, Vanilla JS micro-interactions, CSS custom design system, and zero bloated runtimes.</td>
+          </tr>
+          <tr>
+            <td class="strong">Security Standards</td>
+            <td>Full CSRF Token validation on all mutable endpoints, parameterized SQL queries preventing SQLi, XSS output sanitization (`htmlspecialchars`), Bcrypt password hashing.</td>
+          </tr>
+          <tr>
+            <td class="strong">Audit & Compliance</td>
+            <td>Non-repudiation audit logging tracking user ID, IP address, user-agent, timestamp, target entity, and exact before/after JSON diffs.</td>
+          </tr>
+          <tr>
+            <td class="strong">Supported Deployments</td>
+            <td>Cloud SaaS (Multi-tenant), Dedicated cPanel / VPS, Containerized Docker instances, and On-Premises enterprise servers.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 class="section-heading" style="margin-top:20px;"><span class="badge-num">5</span> Enterprise Roadmap & Integration Ecosystem</h2>
+      <p>EstatePro is continuously evolving to maintain market leadership with upcoming Phase 2 extensions:</p>
+      
+      <div class="feature-grid" style="margin-bottom:15px;">
+        <div class="feature-card">
+          <h4>📱 Native Mobile Applications</h4>
+          <p>Dedicated iOS and Android native apps for tenants (instant biometric rent pay) and security guards (offline QR gate scanner).</p>
+        </div>
+        <div class="feature-card">
+          <h4>⚡ Smart IoT Utility Integration</h4>
+          <p>Direct API integration with prepaid smart meters for automated power/water vending and automated service charge deductions.</p>
+        </div>
+      </div>
+
+      <div class="callout-box" style="margin-top:10px;">
+        <strong>Get Started / Deployment Inquiries:</strong><br>
+        Web: <strong>https://ep.nawpropertyflow.com.ng</strong> &bull; Support: <strong>support@nawpropertyflow.com.ng</strong><br>
+        Built by the NAW PropertyFlow Engineering Team &bull; All Rights Reserved.
+      </div>
+
+      <div class="page-footer">
+        <div>EstatePro Platform Profile &bull; Confidential</div>
+        <div>Page 4 of 4</div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

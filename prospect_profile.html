@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EstatePro - Client Prospectus & Sales Profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-dark: #090e1a;
+      --accent-blue: #2563eb;
+      --accent-cyan: #06b6d4;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --text-dark: #0f172a;
+      --text-muted: #475569;
+      --bg-light: #f8fafc;
+      --border: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-dark);
+      background: #cbd5e1;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .no-print-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #0f172a;
+      color: white;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 9999;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .btn-print {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      border: none;
+      padding: 10px 22px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 10px rgba(16, 185, 129, 0.4);
+    }
+    .btn-print:hover {
+      background: linear-gradient(135deg, #059669, #047857);
+      transform: translateY(-1px);
+    }
+
+    .document-container {
+      max-width: 900px;
+      margin: 70px auto 40px;
+      background: white;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.15);
+    }
+
+    /* Page Layout */
+    .doc-page {
+      position: relative;
+      min-height: 1120px;
+      padding: 48px 56px;
+      background: white;
+      page-break-after: always;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .doc-page:last-child {
+      page-break-after: auto;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .page-header .brand {
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .page-footer {
+      margin-top: auto;
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    /* Cover Page */
+    .cover-page {
+      background: linear-gradient(135deg, #04091a 0%, #0a1b4d 50%, #1e3a8a 100%);
+      color: white;
+      padding: 60px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #34d399;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .cover-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 40px;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      color: #ffffff;
+    }
+
+    .cover-title span {
+      background: linear-gradient(90deg, #38bdf8, #34d399);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cover-subtitle {
+      font-size: 18px;
+      color: #cbd5e1;
+      font-weight: 400;
+      max-width: 650px;
+      margin-bottom: 35px;
+      line-height: 1.5;
+    }
+
+    .value-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 35px;
+    }
+
+    .v-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 20px 16px;
+      backdrop-filter: blur(10px);
+    }
+
+    .v-card h4 {
+      color: #38bdf8;
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 4px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .v-card p {
+      font-size: 12px;
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+
+    .cover-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    .cover-footer strong {
+      color: white;
+      font-size: 14px;
+    }
+
+    /* Headings */
+    h2.section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      color: var(--primary-dark);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2.section-title span.badge {
+      background: var(--accent-blue);
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    p.lead-text {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    /* Comparison Box */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 16px 0 24px;
+    }
+
+    .comp-card {
+      padding: 18px;
+      border-radius: 10px;
+      font-size: 12.5px;
+    }
+
+    .comp-bad {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+    }
+
+    .comp-bad h4 {
+      color: #991b1b;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .comp-bad ul li {
+      list-style: none;
+      padding: 4px 0 4px 18px;
+      position: relative;
+      color: #7f1d1d;
+    }
+
+    .comp-bad ul li::before {
+      content: "✕";
+      position: absolute;
+      left: 0;
+      color: #dc2626;
+      font-weight: bold;
+    }
+
+    .comp-good {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+    }
+
+    .comp-good h4 {
+      color: #065f46;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .comp-good ul li {
+      list-style: none;
+      padding: 4px 0 4px 18px;
+      position: relative;
+      color: #047857;
+    }
+
+    .comp-good ul li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #059669;
+      font-weight: bold;
+    }
+
+    /* Pillars */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .pillar-card {
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .pillar-card h4 {
+      font-size: 14px;
+      color: var(--primary-dark);
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pillar-card p {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    /* Pricing Table */
+    .pricing-table-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 16px 0 20px;
+    }
+
+    .price-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+    }
+
+    .price-card.popular {
+      border: 2px solid var(--accent-blue);
+      background: #eff6ff;
+      transform: scale(1.02);
+    }
+
+    .popular-tag {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent-blue);
+      color: white;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      letter-spacing: 0.5px;
+    }
+
+    .price-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text-dark);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .price-amount {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 2px;
+    }
+
+    .price-period {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .price-features {
+      list-style: none;
+      font-size: 11px;
+      text-align: left;
+      margin-top: 10px;
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+      color: var(--text-muted);
+    }
+
+    .price-features li {
+      padding: 3px 0 3px 12px;
+      position: relative;
+    }
+
+    .price-features li::before {
+      content: "•";
+      color: var(--accent-blue);
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+
+    /* Steps */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 14px 0 20px;
+    }
+
+    .step-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 14px 10px;
+      text-align: center;
+    }
+
+    .step-num {
+      width: 26px;
+      height: 26px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      margin: 0 auto 8px;
+    }
+
+    .step-box h5 {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .step-box p {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+
+    /* CTA Section */
+    .cta-banner {
+      background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+      color: white;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .cta-banner h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      margin-bottom: 6px;
+      color: white;
+    }
+
+    .cta-banner p {
+      font-size: 13px;
+      color: #93c5fd;
+      margin-bottom: 14px;
+    }
+
+    .cta-contacts {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      font-size: 12px;
+      color: #e2e8f0;
+    }
+
+    .cta-contacts span {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 6px 14px;
+      border-radius: 6px;
+    }
+
+    /* Print */
+    @media print {
+      body {
+        background: white;
+        color: black;
+      }
+      .no-print-bar {
+        display: none !important;
+      }
+      .document-container {
+        max-width: 100%;
+        margin: 0;
+        box-shadow: none;
+      }
+      .doc-page {
+        min-height: 100vh;
+        padding: 40px 48px;
+        page-break-after: always !important;
+        break-after: page !important;
+      }
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Print Controls -->
+  <div class="no-print-bar">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <strong style="font-size:16px;">🏢 EstatePro Client Prospectus</strong>
+      <span style="background:#1e293b; padding:3px 8px; border-radius:4px; font-size:12px; color:#34d399;">Prospect & Partner Edition 2026</span>
+    </div>
+    <div style="display:flex; gap:10px;">
+      <button class="btn-print" onclick="window.print()">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/><path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/></svg>
+        Save as PDF / Print
+      </button>
+    </div>
+  </div>
+
+  <div class="document-container">
+
+    <!-- PAGE 1: SALES COVER -->
+    <div class="doc-page cover-page">
+      <div>
+        <div class="cover-badge">★ The Modern Estate Management Standard</div>
+        <h1 class="cover-title">Stop Managing With Paper & WhatsApp.<br>Scale With <span>EstatePro</span>.</h1>
+        <p class="cover-subtitle">Automate rent collection, gate security, maintenance requests, and tenant relations with Africa's fastest-growing digital estate operating system.</p>
+        
+        <div class="value-cards">
+          <div class="v-card">
+            <h4>01. Rent Automation</h4>
+            <p>Automated invoices, payment tracking, SMS/email reminders, and instant digital receipts.</p>
+          </div>
+          <div class="v-card">
+            <h4>02. Gate Security</h4>
+            <p>Digital visitor passcodes, guard scan consoles, and real-time tenant emergency SOS.</p>
+          </div>
+          <div class="v-card">
+            <h4>03. Zero Chaos</h4>
+            <p>One unified dashboard for managers, staff, security, artisans, and residents.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cover-footer">
+        <div>
+          <span>PREPARED FOR:</span>
+          <strong>Estate Developers, Landlords & Property Managers</strong>
+        </div>
+        <div>
+          <span>LIVE PORTAL:</span>
+          <strong>ep.nawpropertyflow.com.ng</strong>
+        </div>
+        <div>
+          <span>GO-LIVE TIME:</span>
+          <strong>Under 48 Hours</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 2: THE PROBLEM & WHY ESTATEPRO -->
+    <div class="doc-page">
+      <div class="page-header">
+        <div class="brand">🏢 EstatePro <span>&bull; Client Prospectus</span></div>
+        <div>Value Proposition & Problem Solving</div>
+      </div>
+
+      <h2 class="section-title"><span class="badge">1</span> Why Real Estate Companies Are Switching</h2>
+      <p class="lead-text">Manual property management costs typical estates 15%–25% in lost revenue annually through delayed rent, uncollected service charges, disorganized repairs, and security lapses.</p>
+
+      <div class="comparison-grid">
+        <div class="comp-bad">
+          <h4>❌ Without EstatePro (The Old Way)</h4>
+          <ul>
+            <li>Chaotic WhatsApp groups flooded with complaints</li>
+            <li>Excel spreadsheets that get corrupted or outdated</li>
+            <li>Paper visitor gate books with zero accountability</li>
+            <li>Lost repair requests and disputed artisan charges</li>
+            <li>Manual bank reconciliation and delayed receipts</li>
+            <li>No real-time financial oversight for property owners</li>
+          </ul>
+        </div>
+
+        <div class="comp-good">
+          <h4>✅ With EstatePro (The Modern Way)</h4>
+          <ul>
+            <li>Centralized resident portal for payments and requests</li>
+            <li>Automated recurring invoices & instant receipt generation</li>
+            <li>Digital gate passcodes with guard validation</li>
+            <li>Transparent artisan quotations & before/after photos</li>
+            <li>Instant financial ledger with 100% audit trail</li>
+            <li>Executive dashboard accessible anytime, anywhere</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2 class="section-title" style="margin-top:10px;"><span class="badge">2</span> Key Operational Pillars</h2>
+
+      <div class="pillars-grid">
+        <div class="pillar-card">
+          <h4>💳 Automated Invoicing & Rent Engine</h4>
+          <p>Tenants receive automated rent bills, reminders, and payment receipts. Supports bank transfer proofs and automated reconciliation.</p>
+        </div>
+        <div class="pillar-card">
+          <h4>🛡️ Smart Gatehouse & Visitor Pass</h4>
+          <p>Residents generate secure visitor codes. Security guards verify entries at the gate in seconds, eliminating intruders.</p>
+        </div>
+        <div class="pillar-card">
+          <h4>🛠️ Fast Maintenance Workflows</h4>
+          <p>Tenants submit photo tickets. Managers assign vetted artisans, review quotations, and inspect completion photos before releasing funds.</p>
+        </div>
+        <div class="pillar-card">
+          <h4>🚨 Emergency Panic Alert System</h4>
+          <p>Residents can trigger instant security/medical alerts from their portal, notifying on-duty guards with exact unit coordinates.</p>
+        </div>
+      </div>
+
+      <div class="page-footer">
+        <div>EstatePro Client Prospectus &bull; NAW PropertyFlow Suite</div>
+        <div>Page 2 of 3</div>
+      </div>
+    </div>
+
+    <!-- PAGE 3: PRICING, ONBOARDING & CONTACT -->
+    <div class="doc-page">
+      <div class="page-header">
+        <div class="brand">🏢 EstatePro <span>&bull; Client Prospectus</span></div>
+        <div>Pricing & Fast Onboarding</div>
+      </div>
+
+      <h2 class="section-title"><span class="badge">3</span> Transparent, Scalable Pricing</h2>
+      <p class="lead-text">Choose the plan that matches your current portfolio size. Upgrade seamlessly as you acquire more estates.</p>
+
+      <div class="pricing-table-grid">
+        <!-- TIER 1: STARTER -->
+        <div class="price-card">
+          <div class="price-title">Starter Plan</div>
+          <div class="price-amount">₦20,000</div>
+          <div class="price-period">per month (billed annually/quarterly)</div>
+          <ul class="price-features">
+            <li><strong>Up to 50 Units</strong> / Apartments</li>
+            <li>1 - 2 Estates Management</li>
+            <li>3 Admin Accounts</li>
+            <li>Automated Rent & Invoicing</li>
+            <li>Digital Tenant Portal & Receipts</li>
+            <li>Maintenance Ticket System</li>
+            <li>Visitor Passcode Verification</li>
+            <li>Standard Email & Chat Support</li>
+          </ul>
+        </div>
+
+        <!-- TIER 2: PROFESSIONAL -->
+        <div class="price-card popular">
+          <div class="popular-tag">Most Popular</div>
+          <div class="price-title">Professional Plan</div>
+          <div class="price-amount">₦35,000</div>
+          <div class="price-period">per month (billed annually/quarterly)</div>
+          <ul class="price-features">
+            <li><strong>Up to 150 Units</strong> / Apartments</li>
+            <li>Up to 5 Estates Management</li>
+            <li>10 Admin & Staff Accounts</li>
+            <li>Gatehouse Security Console</li>
+            <li>Artisan Quotation & Approval Flow</li>
+            <li>Emergency Panic SOS Alerts</li>
+            <li>SMS & Email Broadcast Notices</li>
+            <li>Financial Revenue & Audit Reports</li>
+            <li>Priority Support & Free Onboarding</li>
+          </ul>
+        </div>
+
+        <!-- TIER 3: CUSTOM -->
+        <div class="price-card">
+          <div class="price-title">Custom / Enterprise</div>
+          <div class="price-amount">Custom</div>
+          <div class="price-period">Tailored to your portfolio size</div>
+          <ul class="price-features">
+            <li><strong>Unlimited Units</strong> & Estates</li>
+            <li>Unlimited Staff & Admin Accounts</li>
+            <li>Custom Branding & White-Label Domain</li>
+            <li>Dedicated Cloud/On-Premises Server</li>
+            <li>IoT Smart Meter Integration</li>
+            <li>Bespoke Feature Development</li>
+            <li>Dedicated Technical Account Manager</li>
+            <li>24/7 SLA Guarantee & On-Site Setup</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2 class="section-title" style="margin-top:10px;"><span class="badge">4</span> Simple 4-Step Onboarding (Under 48 Hours)</h2>
+
+      <div class="steps-grid">
+        <div class="step-box">
+          <div class="step-num">1</div>
+          <h5>Discovery</h5>
+          <p>We review your estate layout, unit numbers, and current tenancy records.</p>
+        </div>
+        <div class="step-box">
+          <div class="step-num">2</div>
+          <h5>Data Import</h5>
+          <p>Our team imports all units, landlords, and active tenants into your portal.</p>
+        </div>
+        <div class="step-box">
+          <div class="step-num">3</div>
+          <h5>Staff Training</h5>
+          <p>30-minute training session for your managers, gate guards, and accountants.</p>
+        </div>
+        <div class="step-box">
+          <div class="step-num">4</div>
+          <h5>Go-Live</h5>
+          <p>Tenants receive login access and automated welcome notices.</p>
+        </div>
+      </div>
+
+      <div class="cta-banner">
+        <h3>Ready to Modernize Your Estate?</h3>
+        <p>Book a live interactive walkthrough or activate your estate in 48 hours.</p>
+        <div class="cta-contacts">
+          <span>🌐 <strong>ep.nawpropertyflow.com.ng</strong></span>
+          <span>📧 <strong>sales@nawpropertyflow.com.ng</strong></span>
+          <span>📞 <strong>+234 (0) 800-ESTATE-PRO</strong></span>
+        </div>
+      </div>
+
+      <div class="page-footer">
+        <div>EstatePro Client Prospectus &bull; NAW PropertyFlow Suite</div>
+        <div>Page 3 of 3</div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
