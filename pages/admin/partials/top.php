@@ -307,6 +307,12 @@ function _nav_active(string $file, string $current): string {
                                                     <span class="menu-title">Lease Requests</span>
                                                 </a>
                                             </div>
+                                            <div class="menu-item">
+                                                <a class="menu-link<?= _nav_active('bulk_import.php', $current) ?>" href="bulk_import.php">
+                                                    <span class="menu-icon"><i class="ki-duotone ki-file-up fs-2"><span class="path1"></span><span class="path2"></span></i></span>
+                                                    <span class="menu-title">Bulk Data Import</span>
+                                                </a>
+                                            </div>
                                         <?php endif; ?>
 
                                         <div class="menu-item pt-5">
@@ -365,6 +371,12 @@ function _nav_active(string $file, string $current): string {
                                                 <a class="menu-link<?= _nav_active('invoice_automation.php', $current) ?>" href="invoice_automation.php">
                                                     <span class="menu-icon"><i class="ki-duotone ki-time fs-2"><span class="path1"></span><span class="path2"></span></i></span>
                                                     <span class="menu-title">Invoice Automation</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item">
+                                                <a class="menu-link<?= _nav_active('audit.php', $current) ?>" href="audit.php">
+                                                    <span class="menu-icon"><i class="ki-duotone ki-shield-search fs-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i></span>
+                                                    <span class="menu-title">Audit Trail & Logs</span>
                                                 </a>
                                             </div>
                                         <?php endif; ?>

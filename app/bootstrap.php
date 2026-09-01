@@ -360,6 +360,40 @@ function require_tenant(): ?array {
     return current_tenant();
 }
 
+/** Assert that the logged-in tenant owns the specified invoice */
+function assert_tenant_owns_invoice(int $invoiceId): array {
+    $tenant = require_tenant();
+    if (!$tenant) {
+        http_response_code(403);
+        echo 'Access denied: No active tenancy.';
+        exit;
+    }
+    $inv = db()->fetchOne('SELECT * FROM invoices WHERE id = ? AND tenant_id = ? LIMIT 1', [$invoiceId, (int)$tenant['id']]);
+    if (!$inv) {
+        http_response_code(403);
+        echo 'Access denied: Invoice not found or not owned by your tenancy.';
+        exit;
+    }
+    return $inv;
+}
+
+/** Assert that the logged-in tenant owns the specified maintenance ticket */
+function assert_tenant_owns_ticket(int $ticketId): array {
+    $tenant = require_tenant();
+    if (!$tenant) {
+        http_response_code(403);
+        echo 'Access denied: No active tenancy.';
+        exit;
+    }
+    $t = db()->fetchOne('SELECT * FROM maintenance_tickets WHERE id = ? AND tenant_id = ? LIMIT 1', [$ticketId, (int)$tenant['id']]);
+    if (!$t) {
+        http_response_code(403);
+        echo 'Access denied: Ticket not found or not owned by your tenancy.';
+        exit;
+    }
+    return $t;
+}
+
 /** Current artisan's linked vendor (if any). */
 function current_artisan_vendor(): ?array {
     $user = current_user();
