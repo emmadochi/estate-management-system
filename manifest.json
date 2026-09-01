@@ -1,0 +1,49 @@
+{
+  "name": "EstatePro - Estate Management OS",
+  "short_name": "EstatePro",
+  "description": "The enterprise estate management operating system for rent automation, security gate passes, and accounting.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0f172a",
+  "theme_color": "#2563eb",
+  "categories": ["business", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "assets/media/pwa/icon-512.svg",
+      "sizes": "512x512 192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/media/logos/default-small.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Resident Portal",
+      "short_name": "Portal",
+      "description": "View rent invoices, payment receipts and gate passes",
+      "url": "pages/tenant/dashboard.php",
+      "icons": [{ "src": "assets/media/pwa/icon-512.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Security Gatehouse",
+      "short_name": "Gatehouse",
+      "description": "Verify visitor access codes & incident logs",
+      "url": "pages/security/dashboard.html",
+      "icons": [{ "src": "assets/media/pwa/icon-512.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Admin Console",
+      "short_name": "Admin",
+      "description": "Estate operations and financial overview",
+      "url": "pages/admin/dashboard.php",
+      "icons": [{ "src": "assets/media/pwa/icon-512.svg", "sizes": "192x192" }]
+    }
+  ]
+}

@@ -29,6 +29,13 @@ function _tenant_nav_active(string $file, string $current): string {
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
         <link href="../assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css">
         <link href="../assets/css/style.bundle.css" rel="stylesheet" type="text/css">
+
+        <!-- PWA Mobile Capabilities -->
+        <link rel="manifest" href="../../manifest.json">
+        <meta name="theme-color" content="#2563eb">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <link rel="apple-touch-icon" href="../../assets/media/pwa/icon-512.svg">
     </head>
 
     <body id="kt_app_body"
