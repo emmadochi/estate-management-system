@@ -450,6 +450,18 @@ function _nav_active(string $file, string $current): string {
                                                     <span class="menu-title">Maintenance Reports</span>
                                                 </a>
                                             </div>
+                                            <div class="menu-item">
+                                                <a class="menu-link<?= _nav_active('generator_diesel.php', $current) ?>" href="generator_diesel.php">
+                                                    <span class="menu-icon"><i class="ki-duotone ki-electricity fs-2"><span class="path1"></span><span class="path2"></span></i></span>
+                                                    <span class="menu-title">Power & Diesel Fleet</span>
+                                                </a>
+                                            </div>
+                                            <div class="menu-item">
+                                                <a class="menu-link<?= _nav_active('utility_apportionment.php', $current) ?>" href="utility_apportionment.php">
+                                                    <span class="menu-icon"><i class="ki-duotone ki-calculator fs-2"><span class="path1"></span><span class="path2"></span></i></span>
+                                                    <span class="menu-title">Utility Apportionment</span>
+                                                </a>
+                                            </div>
                                             <?php endif; ?>
                                         <?php endif; ?>
 
