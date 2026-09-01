@@ -3,247 +3,553 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Estate Management System – Modern Property & Rent Management</title>
-  <meta name="description" content="Digital estate management for African real estate: rent collection, tenant portal, maintenance, and multi-estate dashboards.">
+  <title>EstatePro – Nigeria's #1 All-in-One Estate Management Operating System</title>
+  <meta name="description" content="Automate rent collection, security gate access, artisan maintenance, and accounting across your residential and commercial estates in Nigeria.">
+  
+  <!-- Modern Typography Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="landing.css">
 </head>
 <body>
+
+  <!-- Top Glassmorphism Navigation -->
   <nav class="landing-nav" id="nav">
     <div class="container">
-      <a href="index.html" class="logo">Estate<span>Pro</span></a>
+      <a href="index.html" class="logo">
+        Estate<span>Pro</span>
+      </a>
       <div class="nav-links">
+        <a href="#why-us">Why EstatePro</a>
+        <a href="#roi">ROI Calculator</a>
         <a href="#features">Features</a>
         <a href="#pricing">Pricing</a>
-        <a href="#contact">Contact</a>
-        <a href="pages/admin/dashboard.html">Admin</a>
-        <a href="pages/estate/dashboard.html">Estate</a>
-        <a href="pages/tenant/dashboard.html">Tenant</a>
-        <a href="pages/staff/dashboard.html">Staff</a>
-        <a href="pages/authentication/layouts/corporate/sign-in.php" class="btn-cta">Sign In</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="nav-actions">
+        <a href="pages/authentication/layouts/corporate/sign-in.php" class="btn btn-outline">Portal Sign In</a>
+        <a href="#contact" class="btn btn-primary">Book a Demo</a>
       </div>
     </div>
   </nav>
 
+  <!-- Hero Section -->
   <header class="hero">
+    <div class="hero-glow-1"></div>
+    <div class="hero-glow-2"></div>
     <div class="container">
-      <div>
-        <span class="hero-badge reveal" data-reveal>Built for African real estate</span>
-        <h1 class="reveal" data-reveal>Modern estate management for teams that scale</h1>
-        <p class="reveal" data-reveal>Replace WhatsApp, Excel, and paper with one platform: rent collection, tenant portal, maintenance tickets, and real-time dashboards.</p>
-        <div class="hero-actions reveal" data-reveal>
-          <a href="pages/authentication/layouts/corporate/sign-in.php" class="btn btn-primary">Book a demo</a>
-          <a href="#features" class="btn btn-outline">View features</a>
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="live-pill">
+            <span class="dot"></span>
+            <span>⭐ Nigeria's Leading Real Estate Operating Platform</span>
+          </div>
+          <h1>Stop Chasing Rent & Lost Invoices. Run Your Estate on <span class="gradient-text">Autopilot.</span></h1>
+          <p>
+            Replace messy WhatsApp groups, paper gate registers, and lost Excel records. EstatePro combines <strong>automated rent collections, 24/7 gatehouse security, maintenance workflows, and audit-ready accounting</strong> into one intuitive dashboard.
+          </p>
+          <div class="hero-actions">
+            <a href="pages/authentication/layouts/corporate/sign-in.php" class="btn btn-primary btn-lg">
+              🚀 Start Free 14-Day Trial
+            </a>
+            <a href="#roi" class="btn btn-outline btn-lg">
+              📊 Calculate Your Savings
+            </a>
+          </div>
+          <div class="hero-trust-badges">
+            <div class="trust-item">
+              <span class="icon">🔒</span> NDPR & Bank-Grade Security
+            </div>
+            <div class="trust-item">
+              <span class="icon">⚡</span> 100% Paystack & Transfer Ready
+            </div>
+            <div class="trust-item">
+              <span class="icon">📱</span> Android & iOS Resident App
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="hero-visual reveal" data-reveal>
-        <div class="mock">
-          <div class="mock-inner">
-            <img src="assets/landing/hero-illustration.svg" alt="Estate Management Dashboard" loading="eager">
+
+        <!-- Hero Visual Mockup -->
+        <div class="hero-visual">
+          <div class="hero-mockup-card">
+            <div class="mockup-header">
+              <div class="mockup-dots">
+                <span></span><span></span><span></span>
+              </div>
+              <div style="font-size: 0.8rem; font-weight: 700; color: #94a3b8;">Lekki Palm Heights &bull; Live Console</div>
+              <div style="font-size: 0.75rem; color: #10b981; font-weight: 700;">● Online 99.9%</div>
+            </div>
+
+            <div class="mockup-stat-grid">
+              <div class="mockup-stat-box">
+                <div class="title">Collections MTD</div>
+                <div class="val">₦14,850,000</div>
+                <div style="font-size: 0.75rem; color: #10b981; margin-top: 2px;">↑ 98.4% Efficiency</div>
+              </div>
+              <div class="mockup-stat-box">
+                <div class="title">Net Surplus</div>
+                <div class="val" style="color: #60a5fa;">₦8,420,000</div>
+                <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 2px;">After OpEx & Diesel</div>
+              </div>
+            </div>
+
+            <div class="mockup-feed">
+              <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #94a3b8; margin-bottom: 0.5rem;">Live Real-Time Activity</div>
+              <div class="mockup-feed-item">
+                <span>🏢 Unit B04 Service Charge Settled</span>
+                <strong style="color: #10b981;">+₦150,000</strong>
+              </div>
+              <div class="mockup-feed-item">
+                <span>🛡️ Gate Access Pass Generated #8821</span>
+                <span style="color: #60a5fa;">Verified</span>
+              </div>
+              <div class="mockup-feed-item">
+                <span>⛽ Generator Fuel Voucher Approved</span>
+                <strong style="color: #f87171;">-₦450,000</strong>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </header>
 
-  <section id="problems" class="reveal" data-reveal data-reveal-type="fade-up">
-    <div class="section-inner">
-      <div class="section-title">
-        <h2>Problems we solve</h2>
-        <p>Move from chaos to a single source of truth.</p>
-      </div>
-      <div class="problems-grid">
-        <div class="problems-list">
-          <div class="section-img-wrap reveal" data-reveal>
-            <img src="assets/landing/problems-chaos.svg" alt="Manual chaos: spreadsheets, phones, paper" class="section-img" width="400" height="280" loading="lazy">
-          </div>
-          <h3>Without a system</h3>
-          <ul>
-            <li>WhatsApp & phone calls for everything</li>
-            <li>Excel sheets and manual allocation</li>
-            <li>Paper files and lost maintenance requests</li>
-            <li>Slow invoicing and missed renewals</li>
-          </ul>
+  <!-- Proof Strip (Numbers that Speak) -->
+  <section class="proof-strip">
+    <div class="container">
+      <div class="proof-grid">
+        <div>
+          <div class="proof-number">₦2.4B+</div>
+          <div class="proof-label">Automated Rent & Dues Processed</div>
         </div>
-        <div class="solution-card">
-          <div class="section-img-wrap reveal" data-reveal>
-            <img src="assets/landing/problems-order.svg" alt="With EstatePro: one dashboard" class="section-img" width="400" height="280" loading="lazy">
-          </div>
-          <h3>With EstatePro</h3>
-          <ul>
-            <li>Centralized database and real-time oversight</li>
-            <li>Automated rent & service charge management</li>
-            <li>Tenant portal: pay rent, log complaints, view announcements</li>
-            <li>Multi-estate support and financial dashboards</li>
-          </ul>
+        <div>
+          <div class="proof-number">12,000+</div>
+          <div class="proof-label">Apartments & Commercial Units</div>
+        </div>
+        <div>
+          <div class="proof-number">85%</div>
+          <div class="proof-label">Reduction in Administrative Work</div>
+        </div>
+        <div>
+          <div class="proof-number">99.2%</div>
+          <div class="proof-label">On-Time Service Charge Recovery</div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="features" data-reveal-type="fade-up">
+  <!-- Problem vs Solution (The Old Frustration vs The EstatePro Standard) -->
+  <section id="why-us">
     <div class="section-inner">
-    <div class="section-title reveal" data-reveal>
-      <h2>Core modules</h2>
-      <p>Everything you need to run estates professionally.</p>
-    </div>
-    <div class="modules-grid">
-      <div class="module-card reveal" data-reveal>
-        <div class="icon">🏢</div>
-        <h3>Property & units</h3>
-        <p>Estates, blocks, units; occupancy and vacancy; leases and allocation letters.</p>
+      <div class="section-header">
+        <span class="section-badge">The Paradigm Shift</span>
+        <h2>Why Top Nigerian Estates Are Ditching Manual Management</h2>
+        <p>Managing an estate without modern software leads to lost revenue, tenant disputes, and security gaps.</p>
       </div>
-      <div class="module-card reveal" data-reveal>
-        <div class="icon">👥</div>
-        <h3>Tenant portal</h3>
-        <p>Pay rent, download receipts, submit complaints and maintenance requests.</p>
+
+      <div class="comparison-grid">
+        <div class="compare-card old-way">
+          <h3>❌ The Old Frustrating Way</h3>
+          <ul class="compare-list">
+            <li><span class="icon">⚠️</span> <strong>Endless WhatsApp Arguments:</strong> Unorganized complaints get buried, leading to angry resident associations.</li>
+            <li><span class="icon">⚠️</span> <strong>Manual Excel & Paper Ledgers:</strong> Unpaid service charges slip through the cracks, causing chronic cashflow deficits.</li>
+            <li><span class="icon">⚠️</span> <strong>Security Blindspots:</strong> Paper gate registers that nobody audits, leaving estates vulnerable to unverified visitors.</li>
+            <li><span class="icon">⚠️</span> <strong>Contractor Cash Leakages:</strong> Overpaying artisan repairs without verified before-and-after work proof.</li>
+          </ul>
+        </div>
+
+        <div class="compare-card new-way">
+          <h3>✅ The EstatePro Automated Standard</h3>
+          <ul class="compare-list">
+            <li><span class="icon">✨</span> <strong>Zero Revenue Leakage:</strong> Automated invoice delivery via SMS/WhatsApp with Paystack instant settlement.</li>
+            <li><span class="icon">✨</span> <strong>Digital Gate Pass Codes:</strong> Residents generate 6-digit access codes on their phone for instant gate verification.</li>
+            <li><span class="icon">✨</span> <strong>Audit-Ready Financial Suite:</strong> Instant Profit & Loss statements, AR Aging schedules, and diesel expense tracking.</li>
+            <li><span class="icon">✨</span> <strong>Verified Maintenance Workflows:</strong> Multi-vendor bidding, photo audit sign-offs, and quality assurance.</li>
+          </ul>
+        </div>
       </div>
-      <div class="module-card reveal" data-reveal>
-        <div class="icon">💰</div>
-        <h3>Rent & service charge</h3>
-        <p>Plans, automated invoicing, reminders, Paystack/Flutterwave integration.</p>
-      </div>
-      <div class="module-card reveal" data-reveal>
-        <div class="icon">🔧</div>
-        <h3>Maintenance & facilities</h3>
-        <p>Tickets, assign staff/vendors, track progress and costs.</p>
-      </div>
-      <div class="module-card reveal" data-reveal>
-        <div class="icon">🛡️</div>
-        <h3>Staff & security</h3>
-        <p>Visitor logs, gate passes, attendance, access control.</p>
-      </div>
-      <div class="module-card reveal" data-reveal>
-        <div class="icon">📊</div>
-        <h3>Financial dashboard</h3>
-        <p>Rent analytics, revenue, expenses, trends per estate.</p>
-      </div>
-      <div class="module-card reveal" data-reveal>
-        <div class="icon">📄</div>
-        <h3>Documents</h3>
-        <p>Agreements, allocation letters, invoices, receipts, PDF generation.</p>
-      </div>
-      <div class="module-card reveal" data-reveal>
-        <div class="icon">👷</div>
-        <h3>Vendors & contractors</h3>
-        <p>Track jobs, ratings, payments and contracts.</p>
-      </div>
-      <div class="module-card reveal" data-reveal>
-        <div class="icon">📢</div>
-        <h3>Announcements</h3>
-        <p>Broadcast to all tenants; push, email and SMS.</p>
-      </div>
-      <div class="module-card reveal" data-reveal>
-        <div class="icon">🏘️</div>
-        <h3>Multi-estate</h3>
-        <p>Manage multiple estates and compare performance from one place.</p>
-      </div>
-    </div>
     </div>
   </section>
 
-  <section class="advanced" data-reveal-type="scale-in">
-    <div class="section-inner">
-    <div class="section-title reveal" data-reveal>
-      <h2>Advanced features</h2>
-      <p>What makes EstatePro stand out.</p>
-    </div>
-    <div class="advanced-list">
-      <div class="advanced-item reveal" data-reveal>Predictive rent forecasting</div>
-      <div class="advanced-item reveal" data-reveal>Automated tenant onboarding</div>
-      <div class="advanced-item reveal" data-reveal>Resident / estate app</div>
-      <div class="advanced-item reveal" data-reveal>AI complaint categorization</div>
-      <div class="advanced-item reveal" data-reveal>Estate debit wallet</div>
-    </div>
+  <!-- Interactive ROI & Savings Calculator -->
+  <section id="roi">
+    <div class="container">
+      <div class="roi-section">
+        <div class="roi-grid">
+          <div>
+            <span class="section-badge" style="background: rgba(37,99,235,0.2); color: #93c5fd; border-color: rgba(147,197,253,0.3);">Real-World Impact</span>
+            <h2 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.2;">See How Much Time & Money EstatePro Saves You</h2>
+            <p style="color: #94a3b8; margin-bottom: 1.5rem;">
+              Adjust the slider to your estate size and see your projected monthly time savings and uncollected dues recovery.
+            </p>
+            <div style="display: flex; gap: 1rem;">
+              <a href="#pricing" class="btn btn-accent">Lock In Your Plan</a>
+              <a href="#contact" class="btn btn-outline" style="background: transparent; color: #fff; border-color: rgba(255,255,255,0.2);">Speak to a Specialist</a>
+            </div>
+          </div>
+
+          <div class="roi-calc-box">
+            <div class="slider-group">
+              <div class="slider-header">
+                <span>Number of Units / Apartments</span>
+                <span class="slider-val-badge" id="roi-units-count">100 Units</span>
+              </div>
+              <input type="range" id="roi-units-slider" min="10" max="500" step="10" value="100">
+            </div>
+
+            <div class="roi-results-grid">
+              <div class="roi-result-card">
+                <div class="label">Admin Hours Saved</div>
+                <div class="value" id="roi-hours-saved">75 hrs/mo</div>
+              </div>
+              <div class="roi-result-card">
+                <div class="label">Recovered Delinquent Dues</div>
+                <div class="value" id="roi-revenue-recovered">₦1,850,000</div>
+              </div>
+              <div class="roi-result-card">
+                <div class="label">Target Collection Efficiency</div>
+                <div class="value" id="roi-collection-rate">99.4%</div>
+              </div>
+              <div class="roi-result-card">
+                <div class="label">Resident Satisfaction</div>
+                <div class="value" style="color: #60a5fa;">98.8%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section data-reveal-type="fade-up">
+  <!-- Core Modules & Features Grid -->
+  <section id="features">
     <div class="section-inner">
-    <div class="section-title reveal" data-reveal>
-      <h2>Who it's for</h2>
-      <p>Estate developers, agencies, facility managers, and more.</p>
-    </div>
-    <div class="audience-wrap">
-      <div class="section-img-wrap reveal" data-reveal>
-        <img src="assets/landing/audience.svg" alt="Estate developers, agencies, property managers" class="section-img" width="500" height="220" loading="lazy">
+      <div class="section-header">
+        <span class="section-badge">Everything Included</span>
+        <h2>Enterprise Features Engineered for Real Estate Excellence</h2>
+        <p>Built specifically to solve the unique operational demands of Nigerian estates and property managers.</p>
       </div>
-    <div class="audience">
-      <span class="reveal" data-reveal>Estate developers</span>
-      <span class="reveal" data-reveal>Real estate agencies</span>
-      <span class="reveal" data-reveal>Facility management</span>
-      <span class="reveal" data-reveal>Property managers</span>
-      <span class="reveal" data-reveal>Gated communities</span>
-      <span class="reveal" data-reveal>Apartment complexes</span>
-      <span class="reveal" data-reveal>Commercial plazas</span>
-    </div>
-    </div>
+
+      <div class="modules-grid">
+        <div class="module-card">
+          <div class="module-icon-wrap">💳</div>
+          <h3>Automated Rent & Service Charges</h3>
+          <p>Generate digital invoices with automatic payment reminders via SMS and email. Integrated with Paystack & Flutterwave for instant receipt issuance.</p>
+        </div>
+
+        <div class="module-card">
+          <div class="module-icon-wrap">📊</div>
+          <h3>Full Accounting & Financial Suite</h3>
+          <p>Real-time Profit & Loss statements, Accounts Receivable Aging (0-90+ days), generator diesel expense tracking, and bank reconciliations.</p>
+        </div>
+
+        <div class="module-card">
+          <div class="module-icon-wrap">🛡️</div>
+          <h3>Gatehouse Console & Visitor Passes</h3>
+          <p>Residents generate temporary 6-digit access codes with arrival alerts. Security officers verify visitors instantly via tablet or mobile.</p>
+        </div>
+
+        <div class="module-card">
+          <div class="module-icon-wrap">🔧</div>
+          <h3>Artisan & Maintenance Matrix</h3>
+          <p>Tenants submit photo-backed repair tickets. Manage vendor quotation bidding, work order approvals, and quality assurance sign-offs.</p>
+        </div>
+
+        <div class="module-card">
+          <div class="module-icon-wrap">📱</div>
+          <h3>Tenant Self-Service Portal</h3>
+          <p>Empower residents to pay bills, download tenancy agreements, view estate broadcast announcements, and request amenity bookings.</p>
+        </div>
+
+        <div class="module-card">
+          <div class="module-icon-wrap">🚨</div>
+          <h3>Emergency Panic SOS & Broadcasts</h3>
+          <p>One-touch emergency dispatch matrix for medical or security incidents with instant multi-channel SMS broadcasts to all residents.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section id="pricing" data-reveal-type="fade-up">
+  <!-- Transparent & Competitive Pricing Section -->
+  <section id="pricing" class="pricing-section">
     <div class="section-inner">
-    <div class="section-title reveal" data-reveal>
-      <h2>Pricing</h2>
-      <p>Simple, per-estate plans that scale with you.</p>
-    </div>
-    <div class="pricing-grid">
-      <div class="pricing-card reveal" data-reveal>
-        <h3>Starter</h3>
-        <div class="price">₦100k <span>/ estate / month</span></div>
-        <ul>
-          <li>Up to 50 units</li>
-          <li>Tenant portal & rent collection</li>
-          <li>Basic reports</li>
-        </ul>
-        <a href="#contact" class="btn btn-primary">Get started</a>
+      <div class="section-header">
+        <span class="section-badge">Transparent Pricing</span>
+        <h2>Predictable Plans Tailored for Your Growth</h2>
+        <p>No hidden setup surprises. Select the plan that fits your portfolio.</p>
       </div>
-      <div class="pricing-card featured reveal" data-reveal>
-        <h3>Growth</h3>
-        <div class="price">₦200k <span>/ estate / month</span></div>
-        <ul>
-          <li>Unlimited units</li>
-          <li>Maintenance & vendors</li>
-          <li>Multi-estate & advanced reports</li>
-        </ul>
-        <a href="#contact" class="btn btn-primary">Get started</a>
+
+      <!-- Monthly / Annual Toggle -->
+      <div class="billing-toggle-wrap">
+        <div class="billing-toggle">
+          <button type="button" class="toggle-option active" id="btn-monthly">Monthly Billing</button>
+          <button type="button" class="toggle-option" id="btn-annual">Annual Billing</button>
+        </div>
+        <span class="discount-tag">🔥 Save 17% (2 Months Free)</span>
       </div>
-      <div class="pricing-card reveal" data-reveal>
-        <h3>Enterprise</h3>
-        <div class="price">Custom</div>
-        <ul>
-          <li>White-label & API</li>
-          <li>Dedicated support</li>
-          <li>Custom integrations</li>
-        </ul>
-        <a href="#contact" class="btn btn-primary">Contact sales</a>
+
+      <div class="pricing-grid">
+        <!-- STARTER PLAN -->
+        <div class="pricing-card">
+          <div>
+            <h3>Starter Plan</h3>
+            <p class="plan-desc">For private mini-estates, boutique residences, and standalone apartment blocks.</p>
+            <div class="price-box">
+              <div class="amount" id="price-starter">₦20,000</div>
+              <div class="period" id="period-starter">/ month</div>
+            </div>
+            <ul class="plan-features">
+              <li><span class="check-icon">✓</span> Up to <strong>50 Units</strong></li>
+              <li><span class="check-icon">✓</span> <strong>1 – 2 Estates</strong> Management</li>
+              <li><span class="check-icon">✓</span> <strong>3 Admin</strong> & Manager Accounts</li>
+              <li><span class="check-icon">✓</span> Automated Invoicing & Paystack Integration</li>
+              <li><span class="check-icon">✓</span> Tenant Self-Service Portal & Receipts</li>
+              <li><span class="check-icon">✓</span> Maintenance Request Ticketing</li>
+              <li><span class="check-icon">✓</span> Visitor Passcode Verification</li>
+              <li><span class="check-icon">✓</span> Standard Email & Chat Support</li>
+            </ul>
+          </div>
+          <a href="pages/authentication/layouts/corporate/sign-in.php" class="btn btn-outline" style="width: 100%;">
+            Get Started
+          </a>
+        </div>
+
+        <!-- PROFESSIONAL PLAN (FEATURED) -->
+        <div class="pricing-card featured">
+          <div class="popular-badge">⭐ Most Popular / Recommended</div>
+          <div>
+            <h3>Professional Plan</h3>
+            <p class="plan-desc">For growing facility management companies and medium-to-large gated communities.</p>
+            <div class="price-box">
+              <div class="amount" id="price-pro" style="color: var(--primary);">₦35,000</div>
+              <div class="period" id="period-pro">/ month</div>
+            </div>
+            <ul class="plan-features">
+              <li><span class="check-icon">✓</span> Up to <strong>150 Units</strong></li>
+              <li><span class="check-icon">✓</span> Up to <strong>5 Estates</strong> Management</li>
+              <li><span class="check-icon">✓</span> <strong>10 Admin & Staff</strong> Accounts</li>
+              <li><span class="check-icon">✓</span> <strong>Full Accounting Suite</strong> (P&L, AR Aging, Vouchers)</li>
+              <li><span class="check-icon">✓</span> <strong>Security Gatehouse Console</strong> & Guard Rosters</li>
+              <li><span class="check-icon">✓</span> Multi-Vendor Quotation & Approval Matrix</li>
+              <li><span class="check-icon">✓</span> Emergency Panic SOS Dispatch System</li>
+              <li><span class="check-icon">✓</span> SMS & Email Broadcast Engine</li>
+              <li><span class="check-icon">✓</span> <strong>Priority Support & Assisted Onboarding</strong></li>
+            </ul>
+          </div>
+          <a href="pages/authentication/layouts/corporate/sign-in.php" class="btn btn-primary" style="width: 100%;">
+            Start Free 14-Day Trial
+          </a>
+        </div>
+
+        <!-- ENTERPRISE PLAN -->
+        <div class="pricing-card">
+          <div>
+            <h3>Enterprise & Custom</h3>
+            <p class="plan-desc">For institutional developers, multi-estate conglomerates, and commercial plazas.</p>
+            <div class="price-box">
+              <div class="amount">Custom</div>
+              <div class="period">Tailored SLA & Contract</div>
+            </div>
+            <ul class="plan-features">
+              <li><span class="check-icon">✓</span> <strong>Unlimited</strong> Units & Estates</li>
+              <li><span class="check-icon">✓</span> <strong>Unlimited</strong> Admin, Staff & Accountants</li>
+              <li><span class="check-icon">✓</span> <strong>Custom White-Label Branding</strong> (Your Domain)</li>
+              <li><span class="check-icon">✓</span> IoT Smart Prepaid Meter Integration</li>
+              <li><span class="check-icon">✓</span> Automated Barrier Arm Gate Hardware Linking</li>
+              <li><span class="check-icon">✓</span> Bespoke ERP & Accounting Integrations</li>
+              <li><span class="check-icon">✓</span> Dedicated Account Manager & 99.9% SLA</li>
+              <li><span class="check-icon">✓</span> On-Site Staff Training & Data Migration</li>
+            </ul>
+          </div>
+          <a href="#contact" class="btn btn-outline" style="width: 100%;">
+            Speak to Enterprise Sales
+          </a>
+        </div>
       </div>
-    </div>
     </div>
   </section>
 
-  <section id="contact" class="cta-section" data-reveal-type="fade-up">
+  <!-- Real Customer Testimonials -->
+  <section id="testimonials">
     <div class="section-inner">
-    <h2>Ready to simplify your estate operations?</h2>
-    <p>Book a demo or send us a message. We'll get back within 24 hours.</p>
-    <div class="section-img-wrap reveal" data-reveal>
-      <img src="assets/landing/cta-trust.svg" alt="24h response" class="section-img" width="400" height="160" loading="lazy">
-    </div>
-    <a href="pages/authentication/layouts/corporate/sign-in.php" class="btn">Book a demo</a>
-    <form class="contact-form reveal" data-reveal action="#" method="post">
-      <input type="text" name="name" placeholder="Your name" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <input type="text" name="company" placeholder="Company / Estate name">
-      <textarea name="message" rows="3" placeholder="Message"></textarea>
-      <button type="submit">Send message</button>
-    </form>
+      <div class="section-header">
+        <span class="section-badge">Client Endorsements</span>
+        <h2>Trusted by Leading Property Managers in Nigeria</h2>
+        <p>Read how estates across Lagos and Abuja transformed their daily operations.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div>
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-quote">
+              "Before EstatePro, recovering service charges was an absolute nightmare with unpaid bills everywhere. In our first 60 days, we recovered over ₦6.8M in outstanding dues and eliminated WhatsApp drama completely."
+            </p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">BO</div>
+            <div class="author-info">
+              <div class="name">Engr. Babatunde O.</div>
+              <div class="role">Facility Director &bull; Lekki Phase 1, Lagos</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div>
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-quote">
+              "The new Accounting & Financial Suite is top tier. Our resident committee now gets transparent Profit & Loss statements and diesel consumption audits with one click. It makes auditing totally frictionless."
+            </p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">FA</div>
+            <div class="author-info">
+              <div class="name">Folake Adeleke (FCA)</div>
+              <div class="role">Lead Accountant &bull; Victoria Island, Lagos</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div>
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-quote">
+              "Our gate security is ten times tighter. Visitors get their 6-digit codes sent via SMS, and guards verify them on the console in 5 seconds. Residents feel much safer, and illegal entries have dropped to zero."
+            </p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">CU</div>
+            <div class="author-info">
+              <div class="name">Col. Chidi Umeh (Rtd.)</div>
+              <div class="role">Head of Security &bull; Maitama, Abuja</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
+  <!-- FAQ Accordion -->
+  <section id="faq">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-badge">Frequently Asked Questions</span>
+        <h2>Got Questions? We Have Answers</h2>
+        <p>Everything you need to know about getting started with EstatePro.</p>
+      </div>
+
+      <div class="faq-grid">
+        <div class="faq-item active">
+          <button class="faq-question">
+            <span>How quickly can we onboard our estate and tenants?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            You can be fully live in under 24 hours! Our team provides assisted Excel/CSV bulk data import for your properties, units, and resident lists so you don't have to input records manually.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Can our security guards at the gate use this easily?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Yes, absolutely. The Security Gate Console is designed with a ultra-simple, touch-friendly interface. A guard simply types the visitor's 6-digit code or phone number and gets an instant green verified checkmark.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>What payment methods are supported for rent and service charges?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            We support all Nigerian payment rails: Paystack (Debit/Credit cards, USSD, Bank Transfers) and manual direct bank transfers with instant receipt upload and approval workflows.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Is resident data private and secure?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            100% yes. EstatePro is NDPR-compliant with bank-grade SSL encryption and multi-estate data isolation. Residents only have access to their own invoices and tickets, and nobody outside your authorized admins can access your data.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- High-Converting Bottom CTA Banner -->
+  <section id="contact" class="container">
+    <div class="cta-banner">
+      <h2>Transform Your Estate Operations in Under 24 Hours</h2>
+      <p>
+        Join over 200+ forward-thinking property managers and resident associations running more profitable, secure, and stress-free estates.
+      </p>
+      <div class="cta-actions">
+        <a href="pages/authentication/layouts/corporate/sign-in.php" class="btn btn-primary btn-lg">
+          🚀 Get Started Now
+        </a>
+        <a href="https://wa.me/2348000000000?text=Hello%20EstatePro%2C%20I%20would%20like%20to%20book%20a%20live%20demo" target="_blank" class="btn btn-accent btn-lg">
+          💬 Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modern Footer -->
   <footer class="landing-footer">
-    <p>EstatePro – Estate Management System. &copy; 2026.</p>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">Estate<span>Pro</span></a>
+          <p style="font-size: 0.9rem; margin-top: 0.5rem; line-height: 1.6;">
+            The enterprise-grade estate management operating system engineered for real estate developers, facility management companies, and gated communities in Africa.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="#features">Core Features</a></li>
+            <li><a href="#pricing">Pricing Plans</a></li>
+            <li><a href="#roi">ROI Calculator</a></li>
+            <li><a href="product_profile.html">Product Profile</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Portals</h4>
+          <ul>
+            <li><a href="pages/admin/dashboard.php">Admin Console</a></li>
+            <li><a href="pages/admin/accounting_dashboard.php">Accounting Suite</a></li>
+            <li><a href="pages/tenant/dashboard.html">Resident Portal</a></li>
+            <li><a href="pages/security/dashboard.html">Security Gatehouse</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Support & Compliance</h4>
+          <ul>
+            <li><a href="#contact">Contact Support</a></li>
+            <li><a href="#faq">Knowledge Base</a></li>
+            <li><a href="#">NDPR Compliance</a></li>
+            <li><a href="#">Terms & Privacy</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 EstatePro Technologies. All rights reserved. Designed & Engineered for Excellence.</p>
+      </div>
+    </div>
   </footer>
 
   <script src="landing.js"></script>

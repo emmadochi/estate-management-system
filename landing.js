@@ -1,42 +1,7 @@
 (function () {
   'use strict';
 
-  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function initReveal() {
-    if (reducedMotion) {
-      document.querySelectorAll('[data-reveal]').forEach(function (el) { el.classList.add('visible'); });
-      document.querySelectorAll('section[data-reveal-type]').forEach(function (el) { el.classList.add('section-in'); });
-      return;
-    }
-    var observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            if (entry.target.classList.contains('module-card')) {
-              var cards = Array.from(document.querySelectorAll('.module-card'));
-              var index = cards.indexOf(entry.target);
-              entry.target.style.transitionDelay = (index % 6) * 0.05 + 's';
-            }
-          }
-        });
-      },
-      { rootMargin: '0px 0px -40px 0px', threshold: 0.1 }
-    );
-    document.querySelectorAll('[data-reveal]').forEach(function (el) { observer.observe(el); });
-
-    var sectionObserver = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) entry.target.classList.add('section-in');
-        });
-      },
-      { rootMargin: '0px 0px -80px 0px', threshold: 0.05 }
-    );
-    document.querySelectorAll('section[data-reveal-type]').forEach(function (el) { sectionObserver.observe(el); });
-  }
-
+  // 1. Navigation Scroll Effect
   function initNav() {
     var nav = document.getElementById('nav');
     if (!nav) return;
@@ -48,37 +13,92 @@
     update();
   }
 
-  function initParallax() {
-    if (reducedMotion) return;
-    var heroVisual = document.querySelector('.hero-visual');
-    if (!heroVisual) return;
-    window.addEventListener('scroll', function () {
-      var scrolled = window.pageYOffset;
-      var rate = scrolled * 0.3;
-      heroVisual.style.transform = 'translateY(' + rate + 'px)';
-    }, { passive: true });
+  // 2. Interactive Pricing Toggle (Monthly vs Annual)
+  function initPricingToggle() {
+    var monthlyBtn = document.getElementById('btn-monthly');
+    var annualBtn = document.getElementById('btn-annual');
+    if (!monthlyBtn || !annualBtn) return;
+
+    var starterPrice = document.getElementById('price-starter');
+    var starterPeriod = document.getElementById('period-starter');
+    var proPrice = document.getElementById('price-pro');
+    var proPeriod = document.getElementById('period-pro');
+
+    function setBilling(isAnnual) {
+      if (isAnnual) {
+        annualBtn.classList.add('active');
+        monthlyBtn.classList.remove('active');
+        if (starterPrice) starterPrice.textContent = '₦200,000';
+        if (starterPeriod) starterPeriod.textContent = '/ year (2 Months Free)';
+        if (proPrice) proPrice.textContent = '₦350,000';
+        if (proPeriod) proPeriod.textContent = '/ year (2 Months Free)';
+      } else {
+        monthlyBtn.classList.add('active');
+        annualBtn.classList.remove('active');
+        if (starterPrice) starterPrice.textContent = '₦20,000';
+        if (starterPeriod) starterPeriod.textContent = '/ month';
+        if (proPrice) proPrice.textContent = '₦35,000';
+        if (proPeriod) proPeriod.textContent = '/ month';
+      }
+    }
+
+    monthlyBtn.addEventListener('click', function () { setBilling(false); });
+    annualBtn.addEventListener('click', function () { setBilling(true); });
   }
 
-  function initHeroBadge() {
-    var badge = document.querySelector('.hero-badge');
-    if (!badge || reducedMotion) return;
-    badge.addEventListener('mouseenter', function () {
-      this.style.transform = 'scale(1.05)';
-    });
-    badge.addEventListener('mouseleave', function () {
-      this.style.transform = 'scale(1)';
+  // 3. Interactive ROI & Time Saved Calculator
+  function initRoiCalculator() {
+    var slider = document.getElementById('roi-units-slider');
+    var unitsDisplay = document.getElementById('roi-units-count');
+    var hoursSaved = document.getElementById('roi-hours-saved');
+    var revenueRecovered = document.getElementById('roi-revenue-recovered');
+    var collectionRate = document.getElementById('roi-collection-rate');
+
+    if (!slider || !unitsDisplay) return;
+
+    function calculate() {
+      var units = parseInt(slider.value, 10) || 50;
+      unitsDisplay.textContent = units + ' Units';
+
+      // Realistic calculations:
+      // ~45 mins manual work saved per unit/month
+      var hours = Math.round(units * 0.75);
+      // ~₦18,000 average uncollected service charge recovered per delinquent unit
+      var recovered = units * 18500;
+
+      if (hoursSaved) hoursSaved.textContent = hours + ' hrs/mo';
+      if (revenueRecovered) revenueRecovered.textContent = '₦' + recovered.toLocaleString('en-US');
+      if (collectionRate) collectionRate.textContent = '99.4%';
+    }
+
+    slider.addEventListener('input', calculate);
+    calculate();
+  }
+
+  // 4. FAQ Accordion
+  function initFaq() {
+    var faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(function (item) {
+      var question = item.querySelector('.faq-question');
+      if (!question) return;
+      question.addEventListener('click', function () {
+        var isActive = item.classList.contains('active');
+        faqItems.forEach(function (other) { other.classList.remove('active'); });
+        if (!isActive) item.classList.add('active');
+      });
     });
   }
 
+  // 5. Smooth Scroll for Hash Links
   function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
       anchor.addEventListener('click', function (e) {
         var href = this.getAttribute('href');
-        if (href === '#') return;
+        if (href === '#' || !href) return;
         var target = document.querySelector(href);
         if (target) {
           e.preventDefault();
-          var navHeight = document.getElementById('nav').offsetHeight;
+          var navHeight = (document.getElementById('nav') || {}).offsetHeight || 70;
           var targetPosition = target.offsetTop - navHeight - 20;
           window.scrollTo({
             top: targetPosition,
@@ -89,9 +109,11 @@
     });
   }
 
-  initReveal();
-  initNav();
-  initParallax();
-  initHeroBadge();
-  initSmoothScroll();
+  document.addEventListener('DOMContentLoaded', function () {
+    initNav();
+    initPricingToggle();
+    initRoiCalculator();
+    initFaq();
+    initSmoothScroll();
+  });
 })();
