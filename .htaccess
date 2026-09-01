@@ -1,3 +1,25 @@
+# ==========================================================
+# EstatePro Main Web Server Hardening & Routing
+# ==========================================================
+
+# 1. Disable directory browsing
+Options -Indexes
+
+# 2. Block sensitive files & hidden directories
+<FilesMatch "^\.|\.(env|sql|bak|log|ini|sh|md|git.*)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# 3. Security Headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# 4. Standard Routing
 RewriteEngine On
 
 # Allow static files to be served directly

@@ -1,0 +1,29 @@
+# ==========================================================
+# EstatePro Uploads Directory Security
+# ==========================================================
+
+# 1. Disable directory listing / browsing
+Options -Indexes
+
+# 2. Disable PHP and server-side script execution
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+    php_flag engine off
+</IfModule>
+
+# 3. Block execution of all executable scripts & binaries
+<FilesMatch "\.(php|phtml|php3|php4|php5|php7|php8|phar|sh|bash|pl|py|cgi|exe|bat|cmd|jsp|asp|aspx)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# 4. Allow only safe media and document MIME types
+<FilesMatch "\.(jpg|jpeg|png|gif|webp|pdf|svg)$">
+    Order Deny,Allow
+    Allow from all
+</FilesMatch>

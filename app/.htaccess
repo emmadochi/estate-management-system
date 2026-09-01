@@ -1,0 +1,12 @@
+# ==========================================================
+# EstatePro Application Core Protection
+# ==========================================================
+
+# Prevent directory indexing
+Options -Indexes
+
+# Deny direct HTTP access to core backend service classes (they should only be required by pages/ or api/)
+<FilesMatch "\.php$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>

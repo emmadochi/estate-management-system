@@ -1,0 +1,18 @@
+# ==========================================================
+# EstatePro Database Directory Protection
+# ==========================================================
+
+# Disable directory browsing
+Options -Indexes
+
+# Block public web access to all raw SQL files and database configs
+<FilesMatch "\.(sql|md|json|bak|config\.php)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Restrict migration and seeder scripts to CLI or deny direct HTTP browser invocation
+<FilesMatch "^(run_|seed_|test_|create_).*">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>

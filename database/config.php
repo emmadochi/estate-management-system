@@ -3,15 +3,15 @@
  * Database Configuration
  * Estate Management System
  * 
- * Update these values according to your XAMPP MySQL setup
+ * Supports environment variables or default config values
  */
 
 return [
-    'host' => 'localhost',
-    'port' => '3306',
-    'database' => 'estate_management',
-    'username' => 'root',
-    'password' => '',
+    'host' => getenv('DB_HOST') ?: 'localhost',
+    'port' => getenv('DB_PORT') ?: '3306',
+    'database' => getenv('DB_DATABASE') ?: 'estate_management',
+    'username' => getenv('DB_USERNAME') ?: 'root',
+    'password' => getenv('DB_PASSWORD') !== false ? getenv('DB_PASSWORD') : '',
     'charset' => 'utf8mb4',
     'collation' => 'utf8mb4_unicode_ci',
     
